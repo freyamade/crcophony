@@ -1,2 +1,2 @@
-# discors
-discord terminal ui written in rust
+# discourse
+discord terminal ui written in crystal
