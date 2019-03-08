@@ -1,0 +1,10 @@
+version: 1.0
+shards:
+  hydra:
+    github: Ghrind/hydra
+    version: 0.4.0
+
+  termbox:
+    github: andrewsuzuki/termbox-crystal
+    commit: 9471d1f1852dec251d6bcb6f8a583e7abdf04f68
+

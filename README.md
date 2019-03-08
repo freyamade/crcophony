@@ -6,4 +6,4 @@ discord terminal ui written in crystal
 - termbox
 
 ## Initial Design
-![initial design](https://raw.githubusercontent.com/freyamade/discourse/master/mockup.png)
+![initial design](https://raw.githubusercontent.com/freyamade/discourse/master/demo.png)
