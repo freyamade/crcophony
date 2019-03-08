@@ -52,7 +52,17 @@ module Crcophony
   client.on_message_create do |payload|
     logger.info "Message received: #{payload.to_s}"
     if payload.channel_id == channel_id
-      message_container.add_message "#{payload.timestamp.to_s "%H:%M:%S"} #{payload.author.username}: #{payload.content}"
+      content = payload.content
+      # parse the message for mentions
+      if payload.mentions.size > 0
+        payload.mentions.each do |user|
+          content = content.gsub "<@!#{user.id}>", "@#{user.username}"
+        end
+      end
+      # handle escaping certain symbols
+      content = content.gsub "<", "\\<"
+      content = content.gsub ">", "\\>"
+      message_container.add_message "#{payload.timestamp.to_s "%H:%M:%S"} #{payload.author.username}: #{content}"
     end
   end
 
