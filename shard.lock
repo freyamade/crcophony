@@ -2,7 +2,7 @@ version: 1.0
 shards:
   discordcr:
     github: meew0/discordcr
-    version: 0.4.0
+    commit: 1d40f5fa0c9069a817ddbb3daf26782607d69d7d
 
   hydra:
     github: Ghrind/hydra

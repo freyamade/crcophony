@@ -1,13 +1,20 @@
+require "discordcr"
 require "hydra"
 
-# TODO: Write documentation for `crcophony`
 module Crcophony
   VERSION = "0.1.0"
 
+  # Set up Discord
+  logger = Logger.new File.new("discord.log", "w")
+  channel_id = Discord::Snowflake.new 1_u64
+  client = Discord::Client.new token: "", client_id: 0_u64, logger: logger
+
   # Create our own screen and pass it to the setup
   screen = Hydra::TerminalScreen.new
+  view = Hydra::View.new height: screen.height, width: screen.width
+  view.filters << Hydra::BorderFilter
   # Initialize an instance of an app
-  app = Hydra::Application.setup screen: screen
+  app = Hydra::Application.setup screen: screen, view: view
 
   # Once the application is running, pressing ctrl-c will stop it.
   app.bind("keypress.ctrl-c", "application", "stop")
@@ -15,7 +22,7 @@ module Crcophony
   # Set up basic elements
 
   # Server#channel label
-  server_label_text = "UCC Netsoc#general"
+  server_label_text = "Test#test"
   padding = (screen.width - server_label_text.size) / 2
   server_label = Hydra::Text.new("channel_name", {
     :position => "0:0",
@@ -41,6 +48,14 @@ module Crcophony
   })
   app.add_element message_prompt
 
+  # Add message handling to the Discord bot
+  client.on_message_create do |payload|
+    logger.info "Message received: #{payload.to_s}"
+    if payload.channel_id == channel_id
+      message_container.add_message "#{payload.timestamp.to_s "%H:%M:%S"} #{payload.author.username}: #{payload.content}"
+    end
+  end
+
   # Give focus to the message entry prompt on start up
   app.bind("ready") do |event_hub, _, elements, state|
     event_hub.focus "message-prompt"
@@ -49,10 +64,16 @@ module Crcophony
 
   # When a message is sent, add it to the logbox along with the username
   app.bind("message-prompt", "keypress.enter") do |event_hub|
-    message = message_prompt.value
-    message_container.add_message "#{Time.now.to_s "%H:%M:%S"} freyamade: #{message}"
+    # send to discord
+    next false unless message_prompt.value
+    client.create_message channel_id, message_prompt.value
     event_hub.trigger "message-prompt", "clear"
     false
+  end
+
+  # start the client in a separate thread
+  spawn do
+    client.run
   end
 
   app.run # => Screen is cleared and the application is displayed
