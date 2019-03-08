@@ -8,7 +8,10 @@ module Crcophony
   # Set up Discord
   logger = Logger.new File.new("discord.log", "w")
   channel_id = Discord::Snowflake.new 1_u64
-  client = Discord::Client.new token: "", client_id: 0_u64, logger: logger
+  user_id = 0_u64
+  client = Discord::Client.new token: "", client_id: user_id, logger: logger
+  cache = Discord::Cache.new(client)
+  client.cache = cache
 
   # Create our own screen and pass it to the setup
   screen = Hydra::TerminalScreen.new
