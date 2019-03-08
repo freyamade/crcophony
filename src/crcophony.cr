@@ -1,3 +1,4 @@
+require "colorize"
 require "discordcr"
 require "hydra"
 
@@ -53,15 +54,20 @@ module Crcophony
     logger.info "Message received: #{payload.to_s}"
     if payload.channel_id == channel_id
       content = payload.content
+      # handle escaping certain symbols
+      content = content.gsub "<", "\\<"
       # parse the message for mentions
       if payload.mentions.size > 0
         payload.mentions.each do |user|
-          content = content.gsub "<@!#{user.id}>", "@#{user.username}"
+          replace_string : String
+          if user.id == user_id
+            replace_string = "@#{user.username}".colorize.on_yellow.to_s
+          else
+            replace_string = "@#{user.username}"
+          end
+          content = content.gsub "\\<@!#{user.id}>", replace_string
         end
       end
-      # handle escaping certain symbols
-      content = content.gsub "<", "\\<"
-      content = content.gsub ">", "\\>"
       message_container.add_message "#{payload.timestamp.to_s "%H:%M:%S"} #{payload.author.username}: #{content}"
     end
   end
