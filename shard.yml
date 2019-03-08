@@ -1,12 +1,12 @@
-name: discourse
+name: crcophony
 version: 0.1.0
 
 authors:
   - freyamade <frybrdrck@gmail.com>
 
 targets:
-  discourse:
-    main: src/discourse.cr
+  crcophony:
+    main: src/crcophony.cr
 
 dependencies:
   hydra:

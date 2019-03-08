@@ -1,7 +1,7 @@
 require "hydra"
 
-# TODO: Write documentation for `Discourse`
-module Discourse
+# TODO: Write documentation for `crcophony`
+module Crcophony
   VERSION = "0.1.0"
 
   # Create our own screen and pass it to the setup

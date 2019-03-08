@@ -1,2 +1,2 @@
 require "spec"
-require "../src/discourse"
+require "../src/crcophony"

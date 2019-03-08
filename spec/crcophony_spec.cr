@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Discourse do
+describe Crcophony do
   # TODO: Write tests
 
   it "works" do
