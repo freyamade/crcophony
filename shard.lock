@@ -1,5 +1,9 @@
 version: 1.0
 shards:
+  discordcr:
+    github: meew0/discordcr
+    version: 0.4.0
+
   hydra:
     github: Ghrind/hydra
     version: 0.4.0
