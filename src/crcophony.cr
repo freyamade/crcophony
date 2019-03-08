@@ -5,11 +5,20 @@ require "hydra"
 module Crcophony
   VERSION = "0.1.0"
 
-  # Set up Discord
-  logger = Logger.new File.new("discord.log", "w")
-  channel_id = Discord::Snowflake.new 1_u64
+  #############################################################################
+  #                            BEGIN USER VARIABLES                           #
+  #############################################################################
+  channel_id = 1_u64
   user_id = 0_u64
-  client = Discord::Client.new token: "", client_id: user_id, logger: logger
+  token = ""
+  #############################################################################
+  #                             END USER VARIABLES                            #
+  #############################################################################
+
+  # Set up Discord
+  channel = Discord::Snowflake.new channel_id
+  logger = Logger.new File.new("discord.log", "w")
+  client = Discord::Client.new token: token, client_id: user_id, logger: logger
   cache = Discord::Cache.new(client)
   client.cache = cache
 
@@ -85,7 +94,7 @@ module Crcophony
   app.bind("message-prompt", "keypress.enter") do |event_hub|
     # send to discord
     next false unless message_prompt.value
-    client.create_message channel_id, message_prompt.value
+    client.create_message channel, message_prompt.value
     event_hub.trigger "message-prompt", "clear"
     false
   end
