@@ -15,7 +15,7 @@ module Discourse
   # Set up basic elements
 
   # Server#channel label
-  server_label_text = "Netsoc Committee 2019/20#general"
+  server_label_text = "UCC Netsoc#general"
   padding = (screen.width - server_label_text.size) / 2
   server_label = Hydra::Text.new("channel_name", {
     :position => "0:0",
