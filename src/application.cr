@@ -79,7 +79,10 @@ module Crcophony
       server = @client.cache.not_nil!.resolve_guild(@channel.guild_id.not_nil!)
       @channel_name.value = generate_label server, channel
       @messages.clear
-      # Load recent messages (TODO)
+      # Retrieve a message history
+      @client.get_channel_messages(@channel.id).reverse.each do |message|
+        handle_message message
+      end
     end
 
     # Handler for receiving a message via the Discord client
