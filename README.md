@@ -3,15 +3,13 @@
 
 A simple Discord terminal ui written in Crystal.
 
-I'm aware about the state of the code and I will be cleaning it up before continuing implementation.
-
 ## Initial Design
 ![initial design](https://raw.githubusercontent.com/freyamade/crcophony/master/demo.png)
 
 ## Implemented Features
 - Connects to a single channel
 - Mentions are parsed back into usernames
-- When you are mentioned it is written on a yellow background that *should* use the terminal's colour.
+- When you are mentioned it is written in your terminal's yellow colour.
 
 ## Roadmap
 - Obtaining channel history (last 100 messages or so)
