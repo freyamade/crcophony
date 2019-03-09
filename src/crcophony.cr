@@ -5,20 +5,13 @@ require "./*"
 module Crcophony
   VERSION = "0.1.0"
 
-  #############################################################################
-  #                            BEGIN USER VARIABLES                           #
-  #############################################################################
-  channel_id = 1_u64
-  user_id = 0_u64
-  token = ""
-  #############################################################################
-  #                             END USER VARIABLES                            #
-  #############################################################################
+  # Load config from the environment
+  config = Crcophony::Config.new
 
   # Set up Discord
-  channel = Discord::Snowflake.new channel_id
+  channel = Discord::Snowflake.new config.channel_id
   logger = Logger.new File.new("discord.log", "w")
-  client = Discord::Client.new token: token, client_id: user_id, logger: logger
+  client = Discord::Client.new token: config.token, client_id: config.user_id, logger: logger
   cache = Discord::Cache.new(client)
   client.cache = cache
 
