@@ -1,6 +1,7 @@
 require "colorize"
 require "discordcr"
 require "hydra"
+require "./*"
 
 module Crcophony
   VERSION = "0.1.0"
