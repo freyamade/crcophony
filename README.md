@@ -10,9 +10,10 @@ A simple Discord terminal ui written in Crystal.
 - Connects to a single channel
 - Mentions are parsed back into usernames
 - When you are mentioned it is written in your terminal's yellow colour.
+- When you connect to a channel, the client will load the last 50 messages automatically
+- The message container can now be scrolled using <kbd>Ctrl</kbd>+<kbd>W</kbd> and <kbd>Ctrl</kbd>+<kbd>S</kbd> for up and down respectively.
 
 ## Roadmap
-- Obtaining channel history (last 100 messages or so)
 - Channel switching
 
 If you can think of stuff I am missing, open an issue c:
