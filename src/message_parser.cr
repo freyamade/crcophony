@@ -1,4 +1,3 @@
-require "colorize"
 require "discordcr"
 
 module Crcophony
@@ -26,7 +25,7 @@ module Crcophony
       mentions.each do |user|
         replace_string = "@#{user.username}"
         if user.id.to_u64 == user_id
-          replace_string = replace_string.colorize(:black).on_yellow.to_s
+          replace_string = "<yellow-fg>#{replace_string}</yellow-fg>" # replace_string.colorize(:black).on_yellow.to_s
         end
         message = message.gsub "\\<@#{user.id}>", replace_string
       end

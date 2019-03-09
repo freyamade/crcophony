@@ -1,4 +1,3 @@
-require "colorize"
 require "discordcr"
 require "hydra"
 require "./*"
