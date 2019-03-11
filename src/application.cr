@@ -104,8 +104,9 @@ module Crcophony
       if message.channel_id == @channel.id
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
-        content = Crcophony::MessageParser.parse message, @client.client_id.to_u64
-        @messages.add_message "#{message.timestamp.to_s "%H:%M:%S"} #{message.author.username}: #{content}"
+        Crcophony::MessageParser.parse(message, @client.client_id.to_u64, @screen.width).each do |line|
+          @messages.add_message line
+        end
       else
         @channel_list.add_unread message.channel_id
       end
