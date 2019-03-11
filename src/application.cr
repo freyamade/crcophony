@@ -9,6 +9,7 @@ module Crcophony
   class Application
     @app : Hydra::Application
     @channel : Crcophony::Channel
+    @channel_list : Crcophony::ChannelList
     @channel_name : Hydra::Text
     @client : Discord::Client
     @messages : Hydra::Logbox
@@ -22,9 +23,6 @@ module Crcophony
       channel = @client.cache.not_nil!.resolve_channel(channel).not_nil!
       guild = @client.cache.not_nil!.resolve_guild(channel.guild_id.not_nil!).not_nil!
       @channel = Crcophony::Channel.new channel, guild
-
-      # Set up necessary bindings
-      setup_bindings
 
       # Set up the elements in the application display
       # Channel name text display
@@ -42,6 +40,18 @@ module Crcophony
         :height   => (@screen.height - 4).to_s,
       })
 
+      # Create a channel list
+      @channel_list = Crcophony::ChannelList.new(@client, "channels", {
+        :position => "center",
+        :width    => "#{@screen.width / 2}",
+        :height   => "#{@screen.height / 2}",
+        :z_index  => "5",
+        :visible  => "false",
+      })
+
+      # Set up necessary bindings before creating the prompt as we want our keybinds to made before the prompt's default ones
+      setup_bindings
+
       # Message Prompt
       @prompt = Hydra::Prompt.new("prompt", {
         :position => "#{@screen.height - 3}:0",
@@ -50,6 +60,7 @@ module Crcophony
       })
 
       # Add the elements to the application, ensuring to add messages last so the scrollbar is visible
+      @app.add_element @channel_list
       @app.add_element @channel_name
       @app.add_element @prompt
       @app.add_element @messages
@@ -107,6 +118,12 @@ module Crcophony
     # - <kbd>Enter</kbd>: Send Message
     # - <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Up
     # - <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Down
+    # ## Channel Switching
+    # - <kbd>Ctrl</kbd>+<kbd>K</kbd>: Open / Close Channel Selection Menu
+    # - <kbd>Enter</kbd>: Select Channel
+    # - <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Selection Up
+    # - <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Selection Down
+    # - <kbd>ESC</kbd>: Alternative Close Button
     private def setup_bindings
       # Set up a ready listener that auto adds focus to the prompt
       # Give focus to the message entry prompt on start up
@@ -130,8 +147,48 @@ module Crcophony
         event_hub.trigger "messages", "scroll_up"
         false
       end
+      # Scroll down the scrollbox
       @app.bind("prompt", "keypress.") do |event_hub|
         event_hub.trigger "messages", "scroll_down"
+        false
+      end
+
+      # Show the Channel Switcher
+      @app.bind("prompt", "keypress.") do |event_hub|
+        event_hub.trigger "channels", "show"
+        event_hub.focus "channels"
+        false
+      end
+
+      # Move channel selection up one
+      @app.bind("channels", "keypress.") do |event_hub|
+        event_hub.trigger "channels", "select_up"
+        false
+      end
+      # Move channel selection down one
+      @app.bind("channels", "keypress.") do |event_hub|
+        event_hub.trigger "channels", "select_down"
+        false
+      end
+
+      # Make Channel Selection
+      @app.bind("channels", "keypress.enter") do |event_hub|
+        channel : Crcophony::Channel = @channel_list.not_nil!.get_channel
+        set_channel channel
+        event_hub.trigger "channels", "hide"
+        event_hub.focus "prompt"
+        false
+      end
+
+      # Hide the Channel Switcher
+      @app.bind("channels", "keypress.") do |event_hub|
+        event_hub.trigger "channels", "hide"
+        event_hub.focus "prompt"
+        false
+      end
+      @app.bind("channels", "keypress.escape") do |event_hub|
+        event_hub.trigger "channels", "hide"
+        event_hub.focus "prompt"
         false
       end
     end
