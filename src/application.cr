@@ -8,7 +8,7 @@ module Crcophony
   # This class also provides helper methods for cleanly updating parts of the display
   class Application
     @app : Hydra::Application
-    @channel : Discord::Channel
+    @channel : Crcophony::Channel
     @channel_name : Hydra::Text
     @client : Discord::Client
     @messages : Hydra::Logbox
@@ -19,7 +19,9 @@ module Crcophony
       @screen = Hydra::TerminalScreen.new
       @app = Hydra::Application.setup screen: @screen
       # Read the channel data from the cache
-      @channel = @client.cache.not_nil!.resolve_channel(channel).not_nil!
+      channel = @client.cache.not_nil!.resolve_channel(channel).not_nil!
+      guild = @client.cache.not_nil!.resolve_guild(channel.guild_id.not_nil!).not_nil!
+      @channel = Crcophony::Channel.new channel, guild
 
       # Set up necessary bindings
       setup_bindings
@@ -69,10 +71,9 @@ module Crcophony
     # Change the app to display the new channel in the specified server
     #
     # This function updates the top label, clears the old message box and retrieves some (50) messages for context
-    def set_channel(channel : Discord::Channel)
+    def set_channel(channel : Crcophony::Channel)
       @channel = channel
-      server = @client.cache.not_nil!.resolve_guild(@channel.guild_id.not_nil!)
-      @channel_name.value = generate_label server, channel
+      @channel_name.value = generate_label channel
       @messages.clear
 
       # Retrieve a message history
@@ -92,6 +93,8 @@ module Crcophony
         # Then add the message to the logbox
         content = Crcophony::MessageParser.parse message, @client.client_id.to_u64
         @messages.add_message "#{message.timestamp.to_s "%H:%M:%S"} #{message.author.username}: #{content}"
+      else
+        # TODO - Handle unread messages details
       end
     end
 
@@ -132,8 +135,8 @@ module Crcophony
     end
 
     # Generate a centered channel name given a server and a channel
-    private def generate_label(server : Discord::Guild, channel : Discord::Channel) : String
-      label = "#{server.name}##{channel.name}"
+    private def generate_label(channel : Crcophony::Channel) : String
+      label = channel.to_s
       padding = (@screen.width - label.size) / 2
       return "#{" " * padding}#{label}"
     end
