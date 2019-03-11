@@ -43,8 +43,8 @@ module Crcophony
       # Create a channel list
       @channel_list = Crcophony::ChannelList.new(@client, "channels", {
         :position => "center",
-        :width    => "#{@screen.width / 2}",
-        :height   => "#{@screen.height / 2}",
+        :width    => "#{@screen.width / 4 * 3}",
+        :height   => "#{@screen.height / 4 * 3}",
         :z_index  => "5",
         :visible  => "false",
       })
@@ -107,7 +107,7 @@ module Crcophony
         content = Crcophony::MessageParser.parse message, @client.client_id.to_u64
         @messages.add_message "#{message.timestamp.to_s "%H:%M:%S"} #{message.author.username}: #{content}"
       else
-        # TODO - Handle unread messages details
+        @channel_list.add_unread message.channel_id
       end
     end
 

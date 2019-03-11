@@ -33,6 +33,9 @@ A simple Discord terminal ui written in Crystal.
 - Notifications
 - Fork hydra and add my extenstions (maybe make a PR?)
 - DMs and such
+- Improve layout and such
+    - Word wrapping
+    - Username colours
 
 If you can think of stuff I am missing, open an issue c:
 
