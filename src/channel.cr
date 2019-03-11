@@ -18,5 +18,9 @@ module Crcophony
       end
       return builder.to_s
     end
+
+    def id
+      return @channel.id
+    end
   end
 end
