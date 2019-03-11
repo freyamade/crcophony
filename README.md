@@ -35,6 +35,9 @@ A simple Discord terminal ui written in Crystal.
 - DMs and such
 
 
+### Channel Switching Thoughts
+It seems that when you initially login Discord sends a message containing all the servers and channels that the user is connected to. We could use fuzzy string matching on these to populate a list box that only appears when whatever hotkey is input. Fuzzy search through the list and press Enter to switch to the chosen channel, or Esc to go back to the current channel
+
 If you can think of stuff I am missing, open an issue c:
 
 ## Setup
