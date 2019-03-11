@@ -15,6 +15,7 @@ A simple Discord terminal ui written in Crystal.
 
 ## Roadmap
 - Channel switching
+- Fork hydra and add my extenstions (maybe make a PR?)
 
 If you can think of stuff I am missing, open an issue c:
 
