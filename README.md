@@ -12,10 +12,14 @@ A simple Discord terminal ui written in Crystal.
 - When you are mentioned it is written in your terminal's yellow colour.
 - When you connect to a channel, the client will load the last 50 messages automatically
 - The message container can now be scrolled using <kbd>Ctrl</kbd>+<kbd>W</kbd> and <kbd>Ctrl</kbd>+<kbd>S</kbd> for up and down respectively.
+- Channel switching
 
 ## Roadmap
-- Channel switching
+- Channel switcher searching
+- Notifications
 - Fork hydra and add my extenstions (maybe make a PR?)
+- DMs and such
+
 
 If you can think of stuff I am missing, open an issue c:
 
