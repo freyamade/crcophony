@@ -7,7 +7,7 @@ module Crcophony
     @server : Discord::Guild
     @unread_messages : UInt64 = 0_u64
 
-    def initialize(@channel : Discord::Channel, @server : Discord::Server)
+    def initialize(@channel : Discord::Channel, @server : Discord::Guild)
     end
 
     def to_s : String
