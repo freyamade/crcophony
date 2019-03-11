@@ -22,5 +22,8 @@ module Crcophony
     def id
       return @channel.id
     end
+
+    # The number of unread messages in the channel (used only in the switcher)
+    property unread_messages
   end
 end
