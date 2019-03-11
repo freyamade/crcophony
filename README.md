@@ -6,6 +6,20 @@ A simple Discord terminal ui written in Crystal.
 ## Initial Design
 ![initial design](https://raw.githubusercontent.com/freyamade/crcophony/master/demo.png)
 
+## Keybinds
+### Normal
+- <kbd>Ctrl</kbd>+<kbd>C</kbd>: Quit Application
+- <kbd>Enter</kbd>: Send Message
+- <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Up
+- <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Down
+
+### Channel Switching
+- <kbd>Ctrl</kbd>+<kbd>K</kbd>: Open / Close Channel Selection Menu
+- <kbd>Enter</kbd>: Select Channel
+- <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Selection Up
+- <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Selection Down
+- <kbd>ESC</kbd>: Alternative Close Button
+
 ## Implemented Features
 - Connects to a single channel
 - Mentions are parsed back into usernames
@@ -26,11 +40,12 @@ If you can think of stuff I am missing, open an issue c:
 ## Setup
 This project is in ***very*** early alpha. That said, you can currently use it a little bit if you want!
 1. Install [Crystal](https://crystal-lang.org/reference/installation/)
-2. Clone this repo
-3. Run `shards install` to install requirements
-4. Follow the steps in the [Gathering Data](#gathering-data) section to gather necessary information
-5. Run `crystal run src/crcophony.cr` and after a couple of seconds it should pop up
-6. Type and hit enter and messages should send :D
+2. Also you'll need [termbox](https://github.com/nsf/termbox) installed
+3. Clone this repo
+4. Run `shards install` to install requirements
+5. Follow the steps in the [Gathering Data](#gathering-data) section to gather necessary information
+6. Run `crystal run src/crcophony.cr` and after a couple of seconds it should pop up
+7. Type and hit enter and messages should send :D
 
 ## Issues
 If you run into any issues, check the `.log` files that have been created. If anything looks wrong, include the output in an issue ^^
