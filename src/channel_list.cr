@@ -27,7 +27,6 @@ module Crcophony
         client.get_guild_channels(guild.id).each do |channel|
           # Ignore non text channels
           next unless channel.type.guild_text?
-          logger.info "#{guild.name}##{channel.name}"
           channels << Crcophony::Channel.new channel, guild
         end
       end
