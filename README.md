@@ -24,12 +24,12 @@ A simple Discord terminal ui written in Crystal.
 - The message container can now be scrolled using <kbd>Ctrl</kbd>+<kbd>W</kbd> and <kbd>Ctrl</kbd>+<kbd>S</kbd> for up and down respectively.
 - Channel switcher available by pressing <kbd>Ctrl</kbd>+<kbd>K</kbd>
 - Word wrapping so that you can actually read long messages
+- Total number of unread messages is maintained at the top of the system
 
 ## Roadmap
 - Search through channels using fuzzy searching (see below)
 - Notifications
     - OS Notifications
-    - Displaying the number of unread messages at the top of the screen at all times
     - Maybe move channels with unread messages to the top of the switcher?
 - DMs and Group Chats
 - Handle embeds and attachments
@@ -47,8 +47,9 @@ This project is in ***very*** early alpha. That said, you can currently use it a
 3. Clone this repo
 4. Run `shards install` to install requirements
 5. Follow the steps in the [Gathering Data](#gathering-data) section to gather necessary information
-6. Run `crystal run src/crcophony.cr` and after a couple of seconds it should pop up
-7. Type and hit enter and messages should send :D
+6. Run `shards build` to build the system, or use `shards build --release` to build with optimisations (slower build but potential speedups over non release mode)
+7. Run `bin/crcophony` to open the application.
+8. Type and hit enter and messages should send :D
 
 ## Issues
 If you run into any issues, check the `.log` files that have been created. If anything looks wrong, include the output in an issue ^^
