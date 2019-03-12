@@ -29,7 +29,7 @@ module Crcophony
         :position => "0:0",
         :width    => @screen.width.to_s,
         :height   => "1",
-        :value    => "", # This will be filled in later
+        :label    => "Crcophony #{VERSION}",
       })
 
       # Messages container
