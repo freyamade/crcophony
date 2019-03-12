@@ -6,6 +6,8 @@ module Crcophony
   # Set up to allow for the switching of channels within the application
   class ChannelList < Hydra::List
     @channels : Array(Crcophony::Channel)
+    # Keep track of unread messages from all channels here
+    @unread_messages : UInt64 = 0
 
     # TODO - DM Channels
     def initialize(client : Discord::Client, id : String, options = Hash(Symbol, String).new)
@@ -40,12 +42,21 @@ module Crcophony
 
     def add_unread(channel_id : Discord::Snowflake | UInt64)
       id = channel_id.to_u64
+      @unread_messages += 1
       @channels.each do |channel|
         if channel.id.to_u64 == id
           channel.unread_messages += 1
           break
         end
       end
+    end
+
+    # Reset the number of unread messages on the current channel to 0, and update the list's total unreads also
+    def reset_current_notifications
+      channel = get_channel
+      unread_messages = channel.unread_messages
+      channel.unread_messages = 0_u64
+      @unread_messages -= unread_messages
     end
 
     def content : Hydra::ExtendedString

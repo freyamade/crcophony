@@ -83,7 +83,7 @@ module Crcophony
     # This function updates the top label, clears the old message box and retrieves some (50) messages for context
     def set_channel(channel : Crcophony::Channel)
       # Set the unread messages to 0 now that we have opened the channel
-      channel.unread_messages = 0_u64
+      @channel_list.reset_current_notifications
       @channel = channel
       @channel_name.value = generate_label channel
       @messages.clear
