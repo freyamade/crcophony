@@ -8,13 +8,14 @@ module Crcophony
     @channels : Array(Crcophony::Channel)
     # Keep track of unread messages from all channels here
     @unread_messages : UInt64 = 0
+    # Search string used to filter channel names
+    @search_string : String = ""
 
     getter unread_messages
 
     # TODO - DM Channels
     def initialize(client : Discord::Client, id : String, options = Hash(Symbol, String).new)
       super id, options
-      @label = "Select a Channel"
       @channels = get_channels client
       select_first
     end
@@ -48,6 +49,7 @@ module Crcophony
       # For now just log the search string
       logger = Logger.new File.new "search.log", "a"
       logger.info "Searching for: #{string}"
+      @search_string = string
     end
 
     def add_unread(channel_id : Discord::Snowflake | UInt64)
@@ -73,7 +75,9 @@ module Crcophony
       lower_bound = @scroll_index * -1
       upper_bound = lower_bound + inner_height - 1
       items = Array(Hydra::ExtendedString).new
-      @channels[lower_bound..upper_bound].each_with_index do |item, index|
+      filtered_channels : Array(Crcophony::Channel)
+      filtered_channels = filter_channels
+      filtered_channels[lower_bound..upper_bound].each_with_index do |item, index|
         if index - @scroll_index == @selected
           items << Hydra::ExtendedString.new "<yellow-fg>#{item.to_s}</yellow-fg>"
         else
@@ -82,6 +86,16 @@ module Crcophony
       end
       res = add_box(items)
       Hydra::ExtendedString.new(res)
+    end
+
+    # Filter channels based on the current value of the search string
+    def filter_channels : Array(Crcophony::Channel)
+      if @search_string == ""
+        return @channels
+      else
+        # TODO - Actually filter the channels
+        return @channels
+      end
     end
 
     def add_item(item : Crcophony::Channel)
