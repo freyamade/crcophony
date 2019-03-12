@@ -36,6 +36,7 @@ A simple Discord terminal ui written in Crystal.
 - Improve layout and such
     - Word wrapping
     - Username colours
+- Handle embeds and attachments
 
 If you can think of stuff I am missing, open an issue c:
 
