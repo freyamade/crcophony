@@ -34,6 +34,7 @@ A simple Discord terminal ui written in Crystal.
 - DMs and Group Chats
 - Handle embeds and attachments
 - Username colours (can't figure out best way to do these yet)
+- Show a cursor on prompts (hydra fork issue)
 
 If you can think of stuff I am missing, open an issue c:
 
