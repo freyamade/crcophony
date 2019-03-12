@@ -16,6 +16,12 @@ module Crcophony
       @channel_list.search @value
     end
 
+    # When the prompt is cleared, also clear the search value on the list
+    def clear
+      super
+      @channel_list.search ""
+    end
+
     def hide
       super
       # Clear the input
