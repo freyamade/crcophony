@@ -28,9 +28,10 @@ module Crcophony
     client.run
   end
 
-  app.run # => Screen is cleared and the application is displayed
-
-  # The application will loop until ctrl-c is pressed
-
-  app.teardown # => Reset the screen
+  begin
+    app.run # => Screen is cleared and the application is displayed
+    # The application will loop until ctrl-c is pressed or an exception is raised
+  ensure
+    app.teardown # => Reset the screen
+  end
 end
