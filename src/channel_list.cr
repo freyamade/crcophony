@@ -9,6 +9,8 @@ module Crcophony
     # Keep track of unread messages from all channels here
     @unread_messages : UInt64 = 0
 
+    getter unread_messages
+
     # TODO - DM Channels
     def initialize(client : Discord::Client, id : String, options = Hash(Symbol, String).new)
       super id, options
