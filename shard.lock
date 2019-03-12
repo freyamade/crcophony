@@ -5,8 +5,8 @@ shards:
     commit: 1d40f5fa0c9069a817ddbb3daf26782607d69d7d
 
   hydra:
-    github: Ghrind/hydra
-    version: 0.4.0
+    github: freyamade/hydra
+    commit: f9f9d0a9614f708f463b61524da85a241b7e0495
 
   termbox:
     github: andrewsuzuki/termbox-crystal

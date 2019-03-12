@@ -32,7 +32,6 @@ A simple Discord terminal ui written in Crystal.
 ## Roadmap
 - Channel switcher searching
 - Notifications
-- Fork hydra and add my extenstions (maybe make a PR?)
 - DMs and such
 - Username colours (can't figure out best way to do these yet)
 - Handle embeds and attachments

@@ -13,8 +13,8 @@ dependencies:
     github: meew0/discordcr
     branch: master
   hydra:
-    github: Ghrind/hydra
-    version: ~> 0.4.0
+    github: freyamade/hydra
+    branch: master
 
 crystal: 0.27.2
 
