@@ -41,19 +41,22 @@ module Crcophony
 
     # Handle word wrapping, also adding the indentation for lines
     private def self.wrap_text!(message : String, width : Int32, lines : Array(String)) : Array(String)
-      # Add initial indentation
-      message = (" " * 4) + message
       # Provide some padding
       width -= 8
-      # Now handle lines
-      if message.size < width
-        lines << message
-        return lines
-      end
-      while message.size > width
-        # Strip the first `width` characters from the message
-        lines << message[0..width]
-        message = (" " * 4) + message[width..message.size]
+      message_lines = message.split "\n"
+      message_lines.each do |line|
+        # Add initial indentation
+        line = (" " * 4) + line
+        # Now handle lines
+        if message.size < width
+          lines << line
+        else
+          while line.size > width
+            # Strip the first `width` characters from the line
+            lines << line[0..width]
+            line = (" " * 4) + line[width..line.size]
+          end
+        end
       end
       return lines
     end
