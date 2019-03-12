@@ -38,8 +38,16 @@ module Crcophony
       return channels
     end
 
+    # Get the currently selected channel
     def get_channel : Crcophony::Channel
       return @channels[@selected]
+    end
+
+    # Search through the list of channels, using fuzzy levenstein (TODO)
+    def search(string : String)
+      # For now just log the search string
+      logger = Logger.new File.new "search.log", "a"
+      logger.info "Searching for: #{string}"
     end
 
     def add_unread(channel_id : Discord::Snowflake | UInt64)
