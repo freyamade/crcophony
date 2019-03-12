@@ -21,20 +21,22 @@ A simple Discord terminal ui written in Crystal.
 - <kbd>ESC</kbd>: Alternative Close Button
 
 ## Implemented Features
-- Connects to a single channel
 - Mentions are parsed back into usernames
 - When you are mentioned it is written in your terminal's yellow colour.
 - When you connect to a channel, the client will load the last 50 messages automatically
 - The message container can now be scrolled using <kbd>Ctrl</kbd>+<kbd>W</kbd> and <kbd>Ctrl</kbd>+<kbd>S</kbd> for up and down respectively.
-- Channel switching
-- Word wrapping
+- Channel switcher available by pressing <kbd>Ctrl</kbd>+<kbd>K</kbd>
+- Word wrapping so that you can actually read long messages
 
 ## Roadmap
-- Channel switcher searching
+- Search through channels using fuzzy searching (see below)
 - Notifications
-- DMs and such
-- Username colours (can't figure out best way to do these yet)
+    - OS Notifications
+    - Displaying the number of unread messages at the top of the screen at all times
+    - Maybe move channels with unread messages to the top of the switcher?
+- DMs and Group Chats
 - Handle embeds and attachments
+- Username colours (can't figure out best way to do these yet)
 
 If you can think of stuff I am missing, open an issue c:
 
