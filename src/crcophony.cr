@@ -9,14 +9,13 @@ module Crcophony
   config = Crcophony::Config.new
 
   # Set up Discord
-  channel = Discord::Snowflake.new config.channel_id
-  logger = Logger.new File.new("discord.log", "w")
+  logger = Logger.new File.new "discord.log", "w"
   client = Discord::Client.new token: config.token, client_id: config.user_id, logger: logger
   cache = Discord::Cache.new(client)
   client.cache = cache
 
   # Create a Crcophony Application instance
-  app = Crcophony::Application.new client, channel
+  app = Crcophony::Application.new client
 
   # Add message handling to the Discord bot
   client.on_message_create do |payload|

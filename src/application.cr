@@ -16,13 +16,9 @@ module Crcophony
     @prompt : Hydra::Prompt
     @screen : Hydra::TerminalScreen
 
-    def initialize(@client : Discord::Client, channel : Discord::Snowflake)
+    def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
       @app = Hydra::Application.setup screen: @screen
-      # Read the channel data from the cache
-      channel = @client.cache.not_nil!.resolve_channel(channel).not_nil!
-      guild = @client.cache.not_nil!.resolve_guild(channel.guild_id.not_nil!).not_nil!
-      @channel = Crcophony::Channel.new channel, guild
 
       # Set up the elements in the application display
       # Channel name text display
@@ -41,15 +37,18 @@ module Crcophony
       })
 
       # Create a channel list
-      channel_x = (@screen.height.to_f / 2 - (@screen.height / 4 * 3).to_f / 2).floor.to_i
+      channel_x = (@screen.height.to_f / 2 - 13.to_f / 2).floor.to_i
       channel_y = (@screen.width.to_f / 2 - (@screen.width / 4 * 3).to_f / 2).floor.to_i
       @channel_list = Crcophony::ChannelList.new(@client, "channels", {
         :position => "#{channel_x}:#{channel_y}",
         :width    => "#{@screen.width / 4 * 3}",
-        :height   => "#{@screen.height / 4 * 3}",
+        :height   => "13", # "#{@screen.height / 4 * 3}",
         :z_index  => "1",
         :visible  => "false",
       })
+
+      # Set the current channel to be the first channel in the list
+      @channel = @channel_list.get_channel
 
       # Set up necessary bindings before creating the prompt as we want our keybinds to made before the prompt's default ones
       setup_bindings
@@ -97,7 +96,10 @@ module Crcophony
     # This function updates the top label, clears the old message box and retrieves some (50) messages for context
     def set_channel(channel : Crcophony::Channel)
       # Set the unread messages to 0 now that we have opened the channel
-      @channel_list.reset_current_notifications
+      @channel_list.reset_current_notifications channel
+      if @channel.id != channel.id
+        @channel_list.prev_channel = @channel
+      end
       @channel = channel
       @channel_name.value = generate_label channel
       @messages.clear
@@ -191,6 +193,8 @@ module Crcophony
       # Make Channel Selection
       @app.bind("channel_prompt", "keypress.enter") do |event_hub|
         channel : Crcophony::Channel = @channel_list.not_nil!.get_channel
+        # Move selection back to 0 since the filtered list could change
+        @channel_list.not_nil!.reset_selection
         set_channel channel
         event_hub.trigger "channels", "hide"
         event_hub.trigger "channel_prompt", "hide"
