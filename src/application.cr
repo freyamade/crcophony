@@ -108,6 +108,8 @@ module Crcophony
         end
       else
         @channel_list.add_unread message.channel_id
+        # Update the label with the current number of unreads
+        @channel_name.value = generate_label @channel
       end
     end
 
@@ -196,8 +198,15 @@ module Crcophony
     # Generate a centered channel name given a server and a channel
     private def generate_label(channel : Crcophony::Channel) : String
       label = channel.to_s
-      padding = (@screen.width - label.size) / 2
-      return "#{" " * padding}#{label}"
+      left_padding = (@screen.width - label.size) / 2
+      right_string = ""
+      if @channel_list.unread_messages > 0
+        # Add on a notifications display at the top right
+        notif_string = "[#{@channel_list.unread_messages}]"
+        right_padding = (@screen.width - label.size - notif_string.size - 8) / 2
+        right_string = "#{" " * right_padding}#{notif_string}"
+      end
+      return "#{" " * left_padding}#{label}#{right_string}"
     end
   end
 end
