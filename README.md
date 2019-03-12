@@ -3,9 +3,6 @@
 
 A simple Discord terminal ui written in Crystal.
 
-## Initial Design
-![initial design](https://raw.githubusercontent.com/freyamade/crcophony/master/demo.png)
-
 ## Keybinds
 ### Normal
 - <kbd>Ctrl</kbd>+<kbd>C</kbd>: Quit Application
