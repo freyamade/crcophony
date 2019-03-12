@@ -10,6 +10,7 @@ module Crcophony
     @channel : Crcophony::Channel
     @channel_list : Crcophony::ChannelList
     @channel_name : Hydra::Text
+    @channel_prompt : Crcophony::Searcher
     @client : Discord::Client
     @messages : Hydra::Logbox
     @prompt : Hydra::Prompt
@@ -40,11 +41,13 @@ module Crcophony
       })
 
       # Create a channel list
+      channel_x = (@screen.height.to_f / 2 - (@screen.height / 4 * 3).to_f / 2).floor.to_i
+      channel_y = (@screen.width.to_f / 2 - (@screen.width / 4 * 3).to_f / 2).floor.to_i
       @channel_list = Crcophony::ChannelList.new(@client, "channels", {
-        :position => "center",
+        :position => "#{channel_x}:#{channel_y}",
         :width    => "#{@screen.width / 4 * 3}",
         :height   => "#{@screen.height / 4 * 3}",
-        :z_index  => "5",
+        :z_index  => "1",
         :visible  => "false",
       })
 
@@ -58,8 +61,19 @@ module Crcophony
         :height   => "2",
       })
 
+      # Channel Searching Prompt
+      @channel_prompt = Crcophony::Searcher.new(@channel_list, "channel_prompt", {
+        :position => "#{channel_x - 2}:#{channel_y}",
+        :width    => "#{@screen.width / 4 * 3}",
+        :height   => "2",
+        :z_index  => "1",
+        :visible  => "false",
+        :label    => "Search for Channels",
+      })
+
       # Add the elements to the application, ensuring to add messages last so the scrollbar is visible
       @app.add_element @channel_list
+      @app.add_element @channel_prompt
       @app.add_element @channel_name
       @app.add_element @prompt
       @app.add_element @messages
@@ -158,38 +172,42 @@ module Crcophony
       # Show the Channel Switcher
       @app.bind("prompt", "keypress.") do |event_hub|
         event_hub.trigger "channels", "show"
-        event_hub.focus "channels"
+        event_hub.trigger "channel_prompt", "show"
+        event_hub.focus "channel_prompt"
         false
       end
 
       # Move channel selection up one
-      @app.bind("channels", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.") do |event_hub|
         event_hub.trigger "channels", "select_up"
         false
       end
       # Move channel selection down one
-      @app.bind("channels", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.") do |event_hub|
         event_hub.trigger "channels", "select_down"
         false
       end
 
       # Make Channel Selection
-      @app.bind("channels", "keypress.enter") do |event_hub|
+      @app.bind("channel_prompt", "keypress.enter") do |event_hub|
         channel : Crcophony::Channel = @channel_list.not_nil!.get_channel
         set_channel channel
         event_hub.trigger "channels", "hide"
+        event_hub.trigger "channel_prompt", "hide"
         event_hub.focus "prompt"
         false
       end
 
       # Hide the Channel Switcher
-      @app.bind("channels", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.") do |event_hub|
         event_hub.trigger "channels", "hide"
+        event_hub.trigger "channel_prompt", "hide"
         event_hub.focus "prompt"
         false
       end
-      @app.bind("channels", "keypress.escape") do |event_hub|
+      @app.bind("channel_prompt", "keypress.escape") do |event_hub|
         event_hub.trigger "channels", "hide"
+        event_hub.trigger "channel_prompt", "hide"
         event_hub.focus "prompt"
         false
       end
