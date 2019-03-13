@@ -1,6 +1,8 @@
 # crcophony */kəˈkɒf(ə)ni/*
 *read: cacophony*
 
+[![https://img.shields.io/github/tag-date/freyamade/crcophony.svg?label=version&style=flat-square](release badge)](https://github.com/freyamade/crcophony/releases/latest)
+
 A simple Discord terminal ui written in Crystal.
 
 ## Keybinds
@@ -17,42 +19,29 @@ A simple Discord terminal ui written in Crystal.
 - <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Selection Down
 - <kbd>ESC</kbd>: Alternative Close Button
 
-## Implemented Features
-- Mentions are parsed back into usernames
-- When you are mentioned it is written in your terminal's yellow colour.
-- When you connect to a channel, the client will load the last 50 messages automatically
-- The message container can now be scrolled using <kbd>Ctrl</kbd>+<kbd>W</kbd> and <kbd>Ctrl</kbd>+<kbd>S</kbd> for up and down respectively.
-- Channel switcher available by pressing <kbd>Ctrl</kbd>+<kbd>K</kbd>
-- Word wrapping so that you can actually read long messages
-- Total number of unread messages is maintained at the top of the system
-- Channel switching now behaves like the regular Discord client
-    - Without search text, it provides you with your previously visited channel and any channels that have unreads
-    - Typing some search text filters the list of channels you are connected to
-- Loading Progress on startup
-
-## Roadmap
-- OS Notifications?
-- DMs and Group Chats
-- Handle embeds and attachments
-- Username colours (can't figure out best way to do these yet)
-- Show a cursor on prompts (hydra fork issue)
-- Fix build script so static building works fully
-
 If you can think of stuff I am missing, open an issue c:
 
-## Setup
-This project is in ***very*** early alpha. That said, you can currently use it a little bit if you want!
-1. Install [Crystal](https://crystal-lang.org/reference/installation/)
-2. Also you'll need [termbox](https://github.com/nsf/termbox) installed
-3. Clone this repo
-4. Run `shards install` to install requirements
-5. Follow the steps in the [Gathering Data](#gathering-data) section to gather necessary information
-6. Run `shards build` to build the system, or use `shards build --release` to build with optimisations (slower build but potential speedups over non release mode)
-7. Run `bin/crcophony` to open the application.
-8. Type and hit enter and messages should send :D
+## Usage
 
-## Issues
-If you run into any issues, check the `.log` files that have been created. If anything looks wrong, include the output in an issue ^^
+### Using pre-built binary
+Since the 0.1.0 release I have been including a static binary attached to releases. Here are instructions for running the application using these binaries;
+
+1. Go to the [latest release](https://github.com/freyamade/crcophony/releases/latest) and download the binary.
+2. Follow the steps in [Gathering Data](#gathering-data) to set up your environment.
+3. Run `./crcophony` from the directory you downloaded the binary to and it should run.
+
+If the pre-built binary doesn't work, open an issue with as much information as possible (from log files and application error trace and such) and then maybe also try installing from source!
+
+### From source
+If the pre-built binary didn't work for you, or you want to install from source by choice, here are the instructions;
+
+1. Install [Crystal](https://crystal-lang.org/reference/installation/)
+2. Install [termbox](https://github.com/nsf/termbox) following the instructions in their README.
+3. Clone this repo.
+4. Run `shards install` to install requirements.
+5. Follow the steps in [Gathering Data](#gathering-data) to set up your environment.
+6. Run `shards build` to build the system, or use `shards build --release` to build with optimisations (slower build but potential speedups over non release mode).
+7. Run `bin/crcophony` to open the application.
 
 ## Gathering Data
 To use the system, you must gather the following information and export the data as environment variables.
@@ -66,4 +55,17 @@ Here are the instructions for you to get these bits of data;
 3. To get the `user_id`, right click on your own name in the Users sidebar of any channel and click "Copy ID". This is the value you should put in as the `user_id`
 4. Follow [this guide](https://discordhelp.net/discord-token) to get your token.
 
-If you use the `fish` or `bash` shells, a sample `.env` file has been included in this project (`.env.sample.fish` and `env.sample.bash` respectively). Simply rename the appropriate file to `.env`, populate the strings inside with your gathered data and run `source .env` in the directory to get the correct environment variables created.
+If you use the `fish` or `bash` shells, a sample `.env` file has been included in this project (`.env.sample.fish` and `env.sample.bash` respectively).
+Simply rename the appropriate file to `.env`, populate the strings inside with your gathered data and run `source .env` in the directory to get the correct environment variables created.
+
+## Contributing
+
+1. Fork it (https://github.com/freyamade/crcophony/fork)
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+
+Contributors
+
+- freyamade - creator, maintainer
