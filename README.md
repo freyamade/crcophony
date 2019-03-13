@@ -30,9 +30,7 @@ A simple Discord terminal ui written in Crystal.
     - Typing some search text filters the list of channels you are connected to
 
 ## Roadmap
-- Notifications
-    - OS Notifications
-    - Maybe move channels with unread messages to the top of the switcher?
+- OS Notifications?
 - DMs and Group Chats
 - Handle embeds and attachments
 - Username colours (can't figure out best way to do these yet)
