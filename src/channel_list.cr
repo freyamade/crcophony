@@ -65,11 +65,11 @@ module Crcophony
 
     def add_unread(channel_id : Discord::Snowflake | UInt64)
       id = channel_id.to_u64
-      @unread_messages += 1
       @channels.each do |channel|
         if channel.id.to_u64 == id
+          @unread_messages += 1
           channel.unread_messages += 1
-          break
+          return
         end
       end
     end
