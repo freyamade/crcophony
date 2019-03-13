@@ -31,6 +31,7 @@ A simple Discord terminal ui written in Crystal.
 
 ## Roadmap
 - OS Notifications?
+- Loading Progress on startup
 - DMs and Group Chats
 - Handle embeds and attachments
 - Username colours (can't figure out best way to do these yet)
