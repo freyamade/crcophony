@@ -1,3 +1,4 @@
+require "levenshtein"
 require "discordcr"
 require "hydra"
 
@@ -113,8 +114,17 @@ module Crcophony
         end
         return channels
       else
-        # TODO - Actually filter the channels
-        return @channels
+        sorted = @channels.sort do |a, b|
+          # Sort by similarity ratios
+          a_text = a.to_s
+          a_distance = Levenshtein.distance a_text, @search_string
+          a_similarity = ((a_text.size.to_f + @search_string.size) - a_distance) / (a_text.size.to_f + @search_string.size.to_f)
+          b_text = b.to_s
+          b_distance = Levenshtein.distance b_text, @search_string
+          b_similarity = ((b_text.size.to_f + @search_string.size) - b_distance) / (b_text.size.to_f + @search_string.size.to_f)
+          next b_similarity <=> a_similarity
+        end
+        return sorted[0..10]
       end
     end
 
