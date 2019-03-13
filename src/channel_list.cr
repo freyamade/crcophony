@@ -55,7 +55,7 @@ module Crcophony
       end
     end
 
-    # Search through the list of channels, using fuzzy levenstein (TODO)
+    # Search through the list of channels, using levenshtein similarity for fuzzy searching
     def search(string : String)
       # For now just log the search string
       logger = Logger.new File.new "search.log", "a"
