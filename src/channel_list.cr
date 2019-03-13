@@ -30,17 +30,13 @@ module Crcophony
     # Retrieve a list of channels
     private def get_channels(client : Discord::Client) : Array(Crcophony::Channel)
       channels = [] of Crcophony::Channel
+      cache = client.cache.not_nil!
 
-      # First run a method to get all of the servers the user is in
-      client.get_current_user_guilds.each do |user_guild|
-        # Fetch the proper guild object for the channel
-        guild = client.cache.not_nil!.resolve_guild user_guild.id
-        # Fetch the channels for the guild
-        client.get_guild_channels(guild.id).each do |channel|
-          # Ignore non text channels
-          next unless channel.type.guild_text?
-          channels << Crcophony::Channel.new channel, guild
-        end
+      # Loop through the channels in the cache, resolving the guild from the cache also and adding them to the array
+      cache.channels.each do |_, channel|
+        # Currently say not_nil! here because we're only dealing with server channels
+        guild = cache.resolve_guild channel.guild_id.not_nil!
+        channels << Crcophony::Channel.new channel, guild
       end
 
       return channels
