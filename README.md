@@ -1,7 +1,7 @@
 # crcophony */kəˈkɒf(ə)ni/*
 *read: cacophony*
 
-[![https://img.shields.io/github/tag-date/freyamade/crcophony.svg?label=version&style=flat-square](release badge)](https://github.com/freyamade/crcophony/releases/latest)
+[![release badge](https://img.shields.io/github/tag-date/freyamade/crcophony.svg?label=version&style=flat-square)](https://github.com/freyamade/crcophony/releases/latest)
 
 A simple Discord terminal ui written in Crystal.
 
