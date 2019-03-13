@@ -18,7 +18,7 @@ module Crcophony
   puts "Loading Channel Data"
   user_guilds = client.get_current_user_guilds
   user_guilds.each.with_index do |user_guild, index|
-    puts "Reading Channels in Server #{index + 1}/#{user_guilds.size}"
+    puts "Reading Channels in Server #{index + 1} / #{user_guilds.size}"
     # Fetch the proper guild object for the channel
     guild = cache.resolve_guild user_guild.id
     # Fetch the channels for the guild
@@ -29,6 +29,28 @@ module Crcophony
       cache.cache channel
     end
   end
+  # Try loading DMs
+  # puts "Loading DMs / Group Chats"
+  # private_channels = client.get_user_dms
+  # private_channels.each.with_index do |dm, index|
+  #   puts "Loaded #{index + 1} / #{private_channels.size}"
+  #   # Resolve the channel
+  #   puts dm
+  #   if dm.type.dm?
+  #     puts dm.recipients[0].username
+  #   else
+  #     group_channel = cache.resolve_channel dm.id
+  #     if group_channel.name != ""
+  #       puts group_channel.name
+  #     else
+  #       names = [] of String
+  #       dm.recipients.each do |user|
+  #         names << user.username
+  #       end
+  #       puts names.join ", "
+  #     end
+  #   end
+  # end
 
   # Create a Crcophony Application instance
   app = Crcophony::Application.new client
