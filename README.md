@@ -57,13 +57,11 @@ If you run into any issues, check the `.log` files that have been created. If an
 To use the system, you must gather the following information and export the data as environment variables.
 These variables are as follows;
 
-- `CRCOPHONY_CHANNEL_ID`: The ID of the channel you wish to connect to (temporary, will be removed once I have sorted out the channel switching functionality)
 - `CRCOPHONY_TOKEN`: Your user token used to authenticate yourself with the client
 - `CRCOPHONY_USER_ID`: Your user id (might not be necessary, requires investigation and could be removed at a later point)
 
 Here are the instructions for you to get these bits of data;
 1. Turn on [Developer Mode](https://discordia.me/developer-mode)
-2. To get the `channel_id`, right click on the channel you want to join and click "Copy ID". This is the value you should put in as the `channel_id`
 3. To get the `user_id`, right click on your own name in the Users sidebar of any channel and click "Copy ID". This is the value you should put in as the `user_id`
 4. Follow [this guide](https://discordhelp.net/discord-token) to get your token.
 
