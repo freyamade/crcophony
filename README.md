@@ -28,10 +28,10 @@ A simple Discord terminal ui written in Crystal.
 - Channel switching now behaves like the regular Discord client
     - Without search text, it provides you with your previously visited channel and any channels that have unreads
     - Typing some search text filters the list of channels you are connected to
+- Loading Progress on startup
 
 ## Roadmap
 - OS Notifications?
-- Loading Progress on startup
 - DMs and Group Chats
 - Handle embeds and attachments
 - Username colours (can't figure out best way to do these yet)
