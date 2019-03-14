@@ -104,6 +104,10 @@ module Crcophony
           channels = [@prev_channel.not_nil!]
         end
         @channels.each do |channel|
+          # Ensure we don't duplicate the prev_channel
+          if !@prev_channel.nil? && @prev_channel.not_nil!.id == channel.id
+            next
+          end
           if channel.unread_messages > 0
             channels << channel
           end
