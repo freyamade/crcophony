@@ -56,6 +56,8 @@ module Crcophony
             lines << line[0..width]
             line = (" " * 4) + line[width..line.size]
           end
+          # Add the remaining part of the line to lines
+          lines << line
         end
       end
       return lines
