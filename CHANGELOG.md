@@ -5,6 +5,8 @@ One stop shop for the updates made to the project with each version, and to chec
 ## master
 - Fixed issue with parts of messages being removed during the text wrapping process
 - Fixed bug that caused channel names to appear twice in the switcher with no search, when your previous channel also has notifications
+- Slightly improved channel searching algorithm
+    - I am aware of issues and intend to sort them out asap
 
 ## 0.1.0 - Latest Release
 - Currently this application only supports server channels. DMs and Group Chats will come later.
