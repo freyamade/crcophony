@@ -57,9 +57,9 @@ module Crcophony
       while name_index < name.size && search_index < search_string.size
         if name[name_index] == search_string[search_index]
           # Check the previous found index
-          if prev_find_index + 1 == search_index
+          if prev_find_index + 1 == name_index
             score += 5
-            prev_find_index = search_index
+            prev_find_index = name_index
           end
           search_index += 1
         else
