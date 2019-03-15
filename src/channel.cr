@@ -41,6 +41,7 @@ module Crcophony
     # - Matched letter: +0 points
     # - Unmatched letter: -1 point
     # - Consecutive match bonus: +5 points
+    # - Unmatched characters from search string: -3 per character
     def match_score(search_string : String) : Int32
       if search_string == @prev_search_string
         return @prev_score
@@ -53,20 +54,26 @@ module Crcophony
       # Index into the search_string
       search_index = 0
       # Keep track of the position of the previous find
-      prev_find_index = 0
+      prev_matched = false
       while name_index < name.size && search_index < search_string.size
         if name[name_index] == search_string[search_index]
           # Check the previous found index
-          if prev_find_index + 1 == name_index
+          if prev_matched
             score += 5
-            prev_find_index = name_index
+            prev_matched = true
           end
           search_index += 1
         else
           # We didn't find one, subtract one from the score
           score -= 1
+          prev_matched = false
         end
         name_index += 1
+      end
+      while search_index < search_string.size
+        # Subtract 3 from the score for all missed search characters
+        score -= 3
+        search_index += 1
       end
       # Cache stuff
       @prev_search_string = search_string
