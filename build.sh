@@ -4,4 +4,4 @@
 set -e
 # First, build the local image
 docker build -t crcophony_builder .
-docker run --rm -it -v $PWD:/app -w /app crcophony_builder shards build --static --release src/crcophony.cr
+docker run --rm -it -v $PWD:/app -w /app crcophony_builder shards build --static --release
