@@ -60,8 +60,8 @@ module Crcophony
           # Check the previous found index
           if prev_matched
             score += 5
-            prev_matched = true
           end
+          prev_matched = true
           search_index += 1
         else
           # We didn't find one, subtract one from the score
