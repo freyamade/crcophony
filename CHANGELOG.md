@@ -3,6 +3,8 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+
+## 0.2.0 - Latest Release
 - Fixed issue with parts of messages being removed during the text wrapping process
 - Fixed bug that caused channel names to appear twice in the switcher with no search, when your previous channel also has notifications
 - Slightly improved channel searching algorithm
@@ -13,7 +15,7 @@ One stop shop for the updates made to the project with each version, and to chec
 - Handling of embeds
     - Embeds are now rendered in text form below the message body, and below any attachments
 
-## 0.1.0 - Latest Release
+## 0.1.0
 - Currently this application only supports server channels. DMs and Group Chats will come later.
 - Mentions are parsed back into usernames, and any mention of the connected user will show up in yellow.
 - Loading channel history when a channel is changed to (this can and will be improved).
