@@ -7,6 +7,7 @@ One stop shop for the updates made to the project with each version, and to chec
 - Fixed bug that caused channel names to appear twice in the switcher with no search, when your previous channel also has notifications
 - Slightly improved channel searching algorithm
     - Searcher currently only searches through channel names, doesn't include server names to avoid issues
+    - Uses an improved algorithm that scores channel names instead of using basic levenshtein ratios
 - Handling of attachments
     - Attachments are now displayed as links below the message body
 - Handling of embeds
