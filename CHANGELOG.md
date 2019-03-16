@@ -7,6 +7,10 @@ One stop shop for the updates made to the project with each version, and to chec
 - Fixed bug that caused channel names to appear twice in the switcher with no search, when your previous channel also has notifications
 - Slightly improved channel searching algorithm
     - I've improved the issues a bit, searcher currently only searches through channel names, doesn't include servers to avoid issues
+- Handling of attachments
+    - Attachments are now displayed as links below the message body
+- Handling of embeds
+    - Embeds are now rendered in text form below the message body, and below any attachments
 
 ## 0.1.0 - Latest Release
 - Currently this application only supports server channels. DMs and Group Chats will come later.
