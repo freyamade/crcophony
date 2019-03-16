@@ -9,6 +9,7 @@ module Crcophony
       content = escape_special_chars content
       content = parse_user_mentions content, message.mentions, user_id
       content = parse_attachments content, message.attachments
+      content = parse_embeds content, message.embeds
       return generate_output message, content, width
     end
 
@@ -71,8 +72,21 @@ module Crcophony
       attachments.each do |attachment|
         urls << attachment.proxy_url
       end
-      attachment_string = "\nAttachments:\n    #{urls.join "\n    "}"
-      return message + attachment_string
+      return message + "\nAttachments:\n    #{urls.join "\n    "}"
+    end
+
+    # Add embeds to the message
+    private def self.parse_embeds(message : String, embeds : Array(Discord::Embed)) : String
+      return message if embeds.size == 0
+      embed_strings = [] of String
+      embeds.each do |embed|
+        text = "#{embed.title}\n    #{embed.description}"
+        if !embed.url.nil?
+          text += "\n    #{embed.url.not_nil!}"
+        end
+        embed_strings << text
+      end
+      return message + "\n#{embed_strings.join "\n"}"
     end
   end
 end
