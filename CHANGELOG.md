@@ -3,6 +3,7 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+- Fixed rendering issue regarding embeds with multi line descriptions
 
 ## 0.2.0 - Latest Release
 - Fixed issue with parts of messages being removed during the text wrapping process

@@ -80,7 +80,15 @@ module Crcophony
       return message if embeds.size == 0
       embed_strings = [] of String
       embeds.each do |embed|
-        text = "#{embed.title}\n    #{embed.description}"
+        text : String
+        if embed.title.nil?
+          text = "Embed"
+        else
+          text = embed.title.not_nil!
+        end
+        if !embed.description.nil?
+          text += "\n    #{embed.description.not_nil!.split("\n").join("\n    ")}"
+        end
         if !embed.url.nil?
           text += "\n    #{embed.url.not_nil!}"
         end
