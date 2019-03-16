@@ -8,6 +8,7 @@ module Crcophony
       content = message.content
       content = escape_special_chars content
       content = parse_user_mentions content, message.mentions, user_id
+      content = parse_attachments content, message.attachments
       return generate_output message, content, width
     end
 
@@ -61,6 +62,17 @@ module Crcophony
         end
       end
       return lines
+    end
+
+    # Add attachment URLs to the message
+    private def self.parse_attachments(message : String, attachments : Array(Discord::Attachment)) : String
+      return message if attachments.size == 0
+      urls = [] of String
+      attachments.each do |attachment|
+        urls << attachment.proxy_url
+      end
+      attachment_string = "\nAttachments:\n    #{urls.join "\n    "}"
+      return message + attachment_string
     end
   end
 end
