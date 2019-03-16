@@ -161,18 +161,18 @@ module Crcophony
         false
       end
       # Scroll up to scroll box
-      @app.bind("prompt", "keypress.") do |event_hub|
+      @app.bind("prompt", "keypress.ctrl-w") do |event_hub|
         event_hub.trigger "messages", "scroll_up"
         false
       end
       # Scroll down the scrollbox
-      @app.bind("prompt", "keypress.") do |event_hub|
+      @app.bind("prompt", "keypress.ctrl-s") do |event_hub|
         event_hub.trigger "messages", "scroll_down"
         false
       end
 
       # Show the Channel Switcher
-      @app.bind("prompt", "keypress.") do |event_hub|
+      @app.bind("prompt", "keypress.ctrl-k") do |event_hub|
         event_hub.trigger "channels", "show"
         event_hub.trigger "channel_prompt", "show"
         event_hub.focus "channel_prompt"
@@ -180,12 +180,12 @@ module Crcophony
       end
 
       # Move channel selection up one
-      @app.bind("channel_prompt", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.ctrl-w") do |event_hub|
         event_hub.trigger "channels", "select_up"
         false
       end
       # Move channel selection down one
-      @app.bind("channel_prompt", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.ctrl-s") do |event_hub|
         event_hub.trigger "channels", "select_down"
         false
       end
@@ -203,7 +203,7 @@ module Crcophony
       end
 
       # Hide the Channel Switcher
-      @app.bind("channel_prompt", "keypress.") do |event_hub|
+      @app.bind("channel_prompt", "keypress.ctrl-k") do |event_hub|
         event_hub.trigger "channels", "hide"
         event_hub.trigger "channel_prompt", "hide"
         event_hub.focus "prompt"
