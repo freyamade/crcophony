@@ -106,6 +106,8 @@ module Crcophony
 
       # Retrieve a message history
       @client.get_channel_messages(@channel.id).reverse.each do |message|
+        # Add a guild id to the message
+        message.guild_id = @channel.guild_id
         handle_message message, false
       end
       # Scroll to the bottom
@@ -122,7 +124,9 @@ module Crcophony
       if message.channel_id == @channel.id
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
-        Crcophony::MessageParser.parse(message, @client.client_id.to_u64, @screen.width).each do |line|
+        # Get the role for the username colours
+        role = get_role_for_message message
+        Crcophony::MessageParser.parse(message, @client.client_id.to_u64, @screen.width, role).each do |line|
           @messages.add_message line
         end
       else
@@ -134,6 +138,21 @@ module Crcophony
       if update
         @app.trigger "update"
       end
+    end
+
+    # Given a message, look up the user and the guild to get a list of roles and return the highest one (the one that provides the color)
+    private def get_role_for_message(message : Discord::Message) : Discord::Role?
+      if message.guild_id.nil?
+        return nil
+      end
+      cache = @client.cache.not_nil!
+      guild_member = cache.resolve_member message.guild_id.not_nil!, message.author.id
+      if guild_member.roles.size == 0
+        return nil
+      end
+      roles = guild_member.roles.map { |a| cache.resolve_role(a) }
+      roles.sort! { |a, b| b.position <=> a.position }
+      return roles[0]
     end
 
     # Set up the various bindings used within the system
