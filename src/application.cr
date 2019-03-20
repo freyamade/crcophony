@@ -106,16 +106,19 @@ module Crcophony
 
       # Retrieve a message history
       @client.get_channel_messages(@channel.id).reverse.each do |message|
-        handle_message message
+        handle_message message, false
       end
       # Scroll to the bottom
       while @messages.can_scroll_down?
         @messages.scroll -1
       end
+      # Update manually here
+      @app.trigger "update"
     end
 
     # Handler for receiving a message via the Discord client
-    def handle_message(message : Discord::Message)
+    # Update the screen if update is true (this flag is used to not update until all messages are loaded in case of changing channel)
+    def handle_message(message : Discord::Message, update : Bool = true)
       if message.channel_id == @channel.id
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
@@ -126,6 +129,10 @@ module Crcophony
         @channel_list.add_unread message.channel_id
         # Update the label with the current number of unreads
         @channel_name.value = generate_label @channel
+      end
+      # Trigger an update manually
+      if update
+        @app.trigger "update"
       end
     end
 
