@@ -17,6 +17,8 @@ module Crcophony
     @screen : Hydra::TerminalScreen
     # user_id => guild_id => color role
     @user_color_cache : Hash(UInt64, Hash(UInt64, Discord::Role)) = Hash(UInt64, Hash(UInt64, Discord::Role)).new
+    # {user_id, guild_id}
+    @user_nil_role_cache : Set(Tuple(UInt64, UInt64)) = Set(Tuple(UInt64, UInt64)).new
 
     def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
@@ -147,25 +149,54 @@ module Crcophony
       if message.guild_id.nil?
         return nil
       end
-      cache = @client.cache.not_nil!
-      # Check the cache
-      if @user_color_cache[message.author.id.to_u64]? && @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64]?
-        return @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64]
-      end
-      # Not in cache, so put it in there
-      guild_member = cache.resolve_member message.guild_id.not_nil!, message.author.id
-      if guild_member.roles.size == 0
+
+      # Get the necessary information from the message
+      user_id = message.author.id.to_u64
+      guild_id = message.guild_id.not_nil!.to_u64
+      nil_cache_key = {user_id, guild_id}
+
+      # Check if the nil cache exist
+      if @user_nil_role_cache.includes? nil_cache_key
         return nil
       end
+
+      # Check the user color cache
+      if @user_color_cache[user_id]? && @user_color_cache[user_id][guild_id]?
+        return @user_color_cache[user_id][guild_id]
+      end
+
+      # Not in cache, so attempt to fetch if
+      cache = @client.cache.not_nil!
+      guild_member : Discord::GuildMember
+
+      # Wrap in a begin to ensure 404 errors are handled properly
+      begin
+        guild_member = cache.resolve_member message.guild_id.not_nil!, message.author.id
+      rescue
+        logger = Logger.new File.new "debug.log", "a"
+        logger.error "Found an invalid user #{message.author.username} (#{message.author.id}) in Guild #{message.guild_id}"
+        # Add the nil cache
+        @user_nil_role_cache.add nil_cache_key
+        return nil
+      end
+
+      # Check if the user has a role in the server
+      if guild_member.roles.size == 0
+        # Add the nil cache
+        @user_nil_role_cache.add nil_cache_key
+        return nil
+      end
+
+      # Map the role ids to their object forms and get the one with the highest position
       roles = guild_member.roles.map { |a| cache.resolve_role(a) }
       roles.sort! { |a, b| b.position <=> a.position }
       role = roles[0]
 
       # Cache the role
-      if !@user_color_cache[message.author.id.to_u64]?
-        @user_color_cache[message.author.id.to_u64] = {} of UInt64 => Discord::Role
+      if !@user_color_cache[user_id]?
+        @user_color_cache[user_id] = {} of UInt64 => Discord::Role
       end
-      @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64] = role
+      @user_color_cache[user_id][guild_id] = role
       return role
     end
 
