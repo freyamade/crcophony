@@ -1,23 +1,36 @@
 require "discordcr"
+require "hydra"
 
 module Crcophony
   # Class that contains a collection of static methods used to parse retrieved messages into a good output format
   class MessageParser
     # Applies all the various required filters to a discord message and returns the output-ready string form
-    def self.parse(message : Discord::Message, user_id : UInt64, width : Int32) : Array(String)
+    def self.parse(message : Discord::Message, user_id : UInt64, width : Int32, role : Discord::Role?) : Array(String)
       content = message.content
       content = escape_special_chars content
       content = parse_user_mentions content, message.mentions, user_id
       content = parse_attachments content, message.attachments
       content = parse_embeds content, message.embeds
-      return generate_output message, content, width
+      return generate_output message, content, width, role
     end
 
     # Generate the output string that will be added to the message box
-    private def self.generate_output(payload : Discord::Message, message : String, width : Int32) : Array(String)
-      lines = ["#{payload.author.username} @ #{payload.timestamp.to_s "%H:%M:%S"}"]
+    private def self.generate_output(payload : Discord::Message, message : String, width : Int32, role : Discord::Role?) : Array(String)
+      username = get_color_for_username payload.author.username, role
+      lines = ["#{username} @ #{payload.timestamp.to_s "%H:%M:%S"}"]
       wrap_text! message, width, lines
       return lines
+    end
+
+    # Calculate the color for the username to be rendered in
+    private def self.get_color_for_username(username : String, role : Discord::Role?) : String
+      if role.nil?
+        return username
+      end
+      # Look up the color of the role, find the closest to it and add it to the string
+      role = role.not_nil!
+      color_name = Hydra::Color.new(role.color).name
+      return "<#{color_name}-fg>#{username}</#{color_name}-fg>"
     end
 
     # Escapes special characters to allow them to be drawn on the display
