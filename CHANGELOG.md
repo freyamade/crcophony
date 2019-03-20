@@ -3,7 +3,10 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+
+## 0.2.1 - Latest Release
 - Fixed rendering issue regarding embeds with multi line descriptions
+- Fixed major issue regarding the application taking a lot of CPU usage to just run idly
 
 ## 0.2.0 - Latest Release
 - Fixed issue with parts of messages being removed during the text wrapping process
