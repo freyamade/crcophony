@@ -3,10 +3,12 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+
+## 0.3.0 - Latest Release
 - Usernames now have colours
     - Powered by 256 colour terminals. No idea what will happen if you run the system on a system with less colours.
 
-## 0.2.1 - Latest Release
+## 0.2.1
 - Fixed rendering issue regarding embeds with multi line descriptions
 - Fixed major issue regarding the application taking a lot of CPU usage to just run idly
 
