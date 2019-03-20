@@ -15,6 +15,8 @@ module Crcophony
     @messages : Hydra::Logbox
     @prompt : Hydra::Prompt
     @screen : Hydra::TerminalScreen
+    # user_id => guild_id => color role
+    @user_color_cache : Hash(UInt64, Hash(UInt64, Discord::Role)) = Hash(UInt64, Hash(UInt64, Discord::Role)).new
 
     def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
@@ -146,13 +148,25 @@ module Crcophony
         return nil
       end
       cache = @client.cache.not_nil!
+      # Check the cache
+      if @user_color_cache[message.author.id.to_u64]? && @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64]?
+        return @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64]
+      end
+      # Not in cache, so put it in there
       guild_member = cache.resolve_member message.guild_id.not_nil!, message.author.id
       if guild_member.roles.size == 0
         return nil
       end
       roles = guild_member.roles.map { |a| cache.resolve_role(a) }
       roles.sort! { |a, b| b.position <=> a.position }
-      return roles[0]
+      role = roles[0]
+
+      # Cache the role
+      if !@user_color_cache[message.author.id.to_u64]?
+        @user_color_cache[message.author.id.to_u64] = {} of UInt64 => Discord::Role
+      end
+      @user_color_cache[message.author.id.to_u64][message.guild_id.not_nil!.to_u64] = role
+      return role
     end
 
     # Set up the various bindings used within the system
