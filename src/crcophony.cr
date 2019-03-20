@@ -18,7 +18,7 @@ module Crcophony
   puts "Loading Channel Data"
   user_guilds = client.get_current_user_guilds
   user_guilds.each.with_index do |user_guild, index|
-    puts "Reading Channels in Server #{index + 1} / #{user_guilds.size}"
+    puts "Reading Server #{index + 1} / #{user_guilds.size}"
     # Fetch the proper guild object for the channel
     guild = cache.resolve_guild user_guild.id
     # Fetch the channels for the guild
@@ -27,6 +27,10 @@ module Crcophony
       next unless channel.type.guild_text?
       # Add channels to the cache to pull them out later
       cache.cache channel
+    end
+    # Fetch roles (no way to fetch single roles, so just fetch them all)
+    client.get_guild_roles(user_guild.id).each do |role|
+      cache.cache role
     end
   end
   # Try loading DMs
