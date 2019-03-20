@@ -35,6 +35,13 @@ module Crcophony
       return @channel.id
     end
 
+    def guild_id
+      if @server.nil?
+        return nil
+      end
+      return @server.not_nil!.id
+    end
+
     # Given a search string, calculate a score based on the following table.
     #
     # - Score starts at 0
