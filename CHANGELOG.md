@@ -4,8 +4,7 @@ One stop shop for the updates made to the project with each version, and to chec
 
 ## master
 - Removed duplicate colour names so all 256 colours are available (requires `shards update`)
-- Change the timestamp display to put the time first
-    - This is so the timestamps will always be aligned
+- Now renders the timestamp at the right hand side of the screen, similar to some shell themes
 - Colour the title of embeds based on the colour that they are in the normal client
 
 ## 0.3.0 - Latest Release

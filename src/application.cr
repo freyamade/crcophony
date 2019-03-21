@@ -13,6 +13,7 @@ module Crcophony
     @channel_prompt : Crcophony::Searcher
     @client : Discord::Client
     @messages : Hydra::Logbox
+    @parser : Crcophony::MessageParser
     @prompt : Hydra::Prompt
     @screen : Hydra::TerminalScreen
     # user_id => guild_id => color role
@@ -23,6 +24,9 @@ module Crcophony
     def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
       @app = Hydra::Application.setup screen: @screen
+
+      # Create a parser instance
+      @parser = Crcophony::MessageParser.new @client.client_id.to_u64, @client.cache.not_nil!, @screen.width
 
       # Set up the elements in the application display
       # Channel name text display
@@ -130,7 +134,7 @@ module Crcophony
         # Then add the message to the logbox
         # Get the role for the username colours
         role = get_role_for_message message
-        Crcophony::MessageParser.parse(message, @client.client_id.to_u64, @screen.width, role).each do |line|
+        @parser.parse(message, role).each do |line|
           @messages.add_message line
         end
       else
