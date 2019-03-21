@@ -3,6 +3,7 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+- Removed duplicate colour names so all 256 colours are available (requires `shards update`)
 
 ## 0.3.0 - Latest Release
 - Usernames now have colours

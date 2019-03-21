@@ -6,7 +6,7 @@ shards:
 
   hydra:
     github: freyamade/hydra
-    commit: 5d56d65ee2248e0e38c3148b847b42dc42d29b84
+    commit: f269091789288fe6b8350f4f3fb32ef69885fb29
 
   termbox:
     github: andrewsuzuki/termbox-crystal
