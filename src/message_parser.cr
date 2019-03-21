@@ -17,7 +17,7 @@ module Crcophony
     # Generate the output string that will be added to the message box
     private def self.generate_output(payload : Discord::Message, message : String, width : Int32, role : Discord::Role?) : Array(String)
       username = get_color_for_username payload.author.username, role
-      lines = ["#{username} @ #{payload.timestamp.to_s "%H:%M:%S"}"]
+      lines = ["#{payload.timestamp.to_s "%H:%M:%S"} #{username}"]
       wrap_text! message, width, lines
       return lines
     end

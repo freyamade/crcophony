@@ -4,6 +4,8 @@ One stop shop for the updates made to the project with each version, and to chec
 
 ## master
 - Removed duplicate colour names so all 256 colours are available (requires `shards update`)
+- Change the timestamp display to put the time first
+    - This is so the timestamps will always be aligned
 
 ## 0.3.0 - Latest Release
 - Usernames now have colours
