@@ -99,6 +99,10 @@ module Crcophony
         else
           text = embed.title.not_nil!
         end
+        if !embed.colour.nil?
+          colour = Hydra::Color.new(embed.colour.not_nil!).name
+          text = "<#{colour}-fg>#{text}</#{colour}-fg>"
+        end
         if !embed.description.nil?
           text += "\n    #{embed.description.not_nil!.split("\n").join("\n    ")}"
         end
