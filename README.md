@@ -5,6 +5,12 @@
 
 A simple Discord terminal ui written in Crystal.
 
+## WARNING
+Self-bots are not allowed by Discord's Terms of Service.
+Using crcophony could technically count as using a self-bot.
+Use this project at your own risk, it isn't my fault if it gets you banned.
+That being said, I'm trying my best to ensure the application is as safe as possible.
+
 ## Keybinds
 ### Normal
 - <kbd>Ctrl</kbd>+<kbd>C</kbd>: Quit Application
