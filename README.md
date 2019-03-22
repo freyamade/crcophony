@@ -9,7 +9,11 @@ A simple Discord terminal ui written in Crystal.
 Self-bots are not allowed by Discord's Terms of Service.
 Using crcophony could technically count as using a self-bot.
 Use this project at your own risk, it isn't my fault if it gets you banned.
+
 That being said, I'm trying my best to ensure the application is as safe as possible.
+You cannot do anything in crcophony that you can't do in the normal Discord client (in fact, there are things you can do in the Discord client that you can't do in crcophony) so it *should* be okay.
+
+Bottom line: ***Use at your own risk***
 
 ## Keybinds
 ### Normal
