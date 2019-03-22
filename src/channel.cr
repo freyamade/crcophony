@@ -55,7 +55,12 @@ module Crcophony
       end
       # Calculate a score for this channel name
       score = 0
-      name = self.to_s.split("#")[1]
+      name : String
+      if @server
+        name = self.to_s.split("#")[1]
+      else
+        name = self.to_s
+      end
       # Index into this channel's name
       name_index = 0
       # Index into the search_string
