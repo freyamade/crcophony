@@ -23,7 +23,19 @@ module Crcophony
       if !@server.nil?
         builder << "#{@server.not_nil!.name}##{@channel.name}"
       else
-        builder << @channel.name
+        # Generate the name for the DM
+        if @channel.name
+          builder << @channel.name
+        else
+          names = [] of String
+          @channel.recipients.not_nil!.each do |user|
+            names << user.username
+          end
+          name = names.join ", "
+          # Cache the name in the channel
+          @channel.name = name
+          builder << name
+        end
       end
       if @unread_messages > 0
         builder << " [#{@unread_messages}]"
@@ -57,9 +69,9 @@ module Crcophony
       score = 0
       name : String
       if @server
-        name = self.to_s.split("#")[1]
+        name = self.to_s.split("#")[1].downcase
       else
-        name = self.to_s
+        name = self.to_s.downcase
       end
       # Index into this channel's name
       name_index = 0
