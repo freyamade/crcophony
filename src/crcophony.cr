@@ -34,27 +34,13 @@ module Crcophony
     end
   end
   # Try loading DMs
-  # puts "Loading DMs / Group Chats"
-  # private_channels = client.get_user_dms
-  # private_channels.each.with_index do |dm, index|
-  #   puts "Loaded #{index + 1} / #{private_channels.size}"
-  #   # Resolve the channel
-  #   puts dm
-  #   if dm.type.dm?
-  #     puts dm.recipients[0].username
-  #   else
-  #     group_channel = cache.resolve_channel dm.id
-  #     if group_channel.name != ""
-  #       puts group_channel.name
-  #     else
-  #       names = [] of String
-  #       dm.recipients.each do |user|
-  #         names << user.username
-  #       end
-  #       puts names.join ", "
-  #     end
-  #   end
-  # end
+  puts "Loading DMs / Group Chats"
+  private_channels = client.get_user_dms
+  private_channels.each.with_index do |dm, index|
+    # Resolve the channel
+    cache.resolve_channel dm.id
+    puts "Loaded #{index + 1} / #{private_channels.size}"
+  end
 
   # Create a Crcophony Application instance
   app = Crcophony::Application.new client
