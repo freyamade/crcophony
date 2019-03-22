@@ -34,9 +34,12 @@ module Crcophony
 
       # Loop through the channels in the cache, resolving the guild from the cache also and adding them to the array
       cache.channels.each do |_, channel|
-        # Currently say not_nil! here because we're only dealing with server channels
-        guild = cache.resolve_guild channel.guild_id.not_nil!
-        channels << Crcophony::Channel.new channel, guild
+        if channel.guild_id
+          guild = cache.resolve_guild channel.guild_id.not_nil!
+          channels << Crcophony::Channel.new channel, guild
+        else
+          channels << Crcophony::Channel.new channel
+        end
       end
 
       return channels
@@ -53,9 +56,6 @@ module Crcophony
 
     # Search through the list of channels, using levenshtein similarity for fuzzy searching
     def search(string : String)
-      # For now just log the search string
-      logger = Logger.new File.new "search.log", "a"
-      logger.info "Searching for: #{string}"
       @search_string = string
     end
 
