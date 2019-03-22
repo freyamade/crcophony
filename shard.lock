@@ -1,8 +1,8 @@
 version: 1.0
 shards:
   discordcr:
-    github: meew0/discordcr
-    commit: 1d40f5fa0c9069a817ddbb3daf26782607d69d7d
+    github: freyamade/discordcr
+    commit: 9a4029b312fd0d1205afc09d6faa34dc6796e29c
 
   hydra:
     github: freyamade/hydra
