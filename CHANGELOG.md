@@ -3,11 +3,14 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
-- Removed duplicate colour names so all 256 colours are available (requires `shards update`)
+
+## 0.4.0 - Latest Release
+- Removed duplicate colour names so all 256 colours are available
 - Now renders the timestamp at the right hand side of the screen, similar to some shell themes
 - Colour the title of embeds based on the colour that they are in the normal client
+- Added handling for Direct Messages and Group Chats
 
-## 0.3.0 - Latest Release
+## 0.3.0
 - Usernames now have colours
     - Powered by 256 colour terminals. No idea what will happen if you run the system on a system with less colours.
 
