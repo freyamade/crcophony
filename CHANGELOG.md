@@ -3,6 +3,7 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+- Changed loading messages to use a progress bar
 
 ## 0.4.0 - Latest Release
 - Removed duplicate colour names so all 256 colours are available
