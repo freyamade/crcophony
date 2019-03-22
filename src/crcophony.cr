@@ -15,10 +15,11 @@ module Crcophony
   client.cache = cache
 
   # Retrieve the list of guilds and channels out here, so we can process them and display progress before opening the application
-  puts "Loading Channel Data"
+  puts "Loading Server Data"
   user_guilds = client.get_current_user_guilds
+  progress = ProgressBar.new user_guilds.size, 40
+  print progress.to_s
   user_guilds.each.with_index do |user_guild, index|
-    puts "Reading Server #{index + 1} / #{user_guilds.size}"
     # Fetch the proper guild object for the channel
     guild = cache.resolve_guild user_guild.id
     # Fetch the channels for the guild
@@ -32,14 +33,23 @@ module Crcophony
     client.get_guild_roles(user_guild.id).each do |role|
       cache.cache role
     end
+
+    # Update the progress
+    progress.tick
+    print progress.to_s
   end
-  # Try loading DMs
-  puts "Loading DMs / Group Chats"
+  # Lading DMs and Group Chats
+  puts "\nLoading DMs / Group Chats"
   private_channels = client.get_user_dms
+  progress = ProgressBar.new private_channels.size, 40
+  print progress.to_s
   private_channels.each.with_index do |dm, index|
     # Resolve the channel
     cache.resolve_channel dm.id
-    puts "Loaded #{index + 1} / #{private_channels.size}"
+
+    # Update the progress
+    progress.tick
+    print progress.to_s
   end
 
   # Create a Crcophony Application instance
