@@ -10,8 +10,8 @@ targets:
 
 dependencies:
   discordcr:
-    github: meew0/discordcr
-    branch: master
+    github: freyamade/discordcr
+    branch: bugfix/channel-icon-type
   hydra:
     github: freyamade/hydra
     branch: master
