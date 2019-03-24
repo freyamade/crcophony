@@ -4,6 +4,8 @@ require "hydra"
 module Crcophony
   # Class that contains a collection of static methods used to parse retrieved messages into a good output format
   class MessageParser
+    # Regex for matching code blocks with an optional language
+    @@code_block_regex = /```(?P<language>[a-zA-Z]+\n)?(?P<content>[^`]*)```/
     # The Client Cache, so the parser can do lookups
     @cache : Discord::Cache
     # Array of special characters that should be escaped
@@ -23,6 +25,8 @@ module Crcophony
       content = message.content
       # Escape special characters from the Discord Message so it displays properly
       content = escape_special_chars content
+      # Parse code blocks (contained within ``` symbols)
+      content = parse_code_blocks content
       # Find mentions of the user by username or nickname and turn it into the name
       content = parse_user_mentions content, message.mentions
       # Parse bodies of embeds and add them to the message
@@ -65,6 +69,24 @@ module Crcophony
         end
         # <@id> => username, <@!id> => nickname, convert both
         content = content.gsub /\\<@!?#{user.id}>/, replace_string
+      end
+      return content
+    end
+
+    # Parse code blocks (contained within ``` symbols).
+    # Will have to be expanded for syntax highlighting at a later date.
+    private def parse_code_blocks(content : String) : String
+      # Ensure that all code blocks start and finish on a new line
+      content = content.gsub /([^\n])```/, "\\1\n```"
+      while match = @@code_block_regex.match content
+        # We have the potential for a "language" key to syntax highlight later
+
+        # Build the parsed code block by prepending a coloured bar character
+        block = match["content"].strip
+        parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + line }
+        parsed = parsed_lines.join "\n"
+        # Replace the block with the parsed lines
+        content = content.sub @@code_block_regex, parsed
       end
       return content
     end
