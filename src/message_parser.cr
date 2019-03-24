@@ -5,7 +5,7 @@ module Crcophony
   # Class that contains a collection of static methods used to parse retrieved messages into a good output format
   class MessageParser
     # Regex for matching code blocks with an optional language
-    @@code_block_regex = /```(?P<language>[a-zA-Z]+\n)?(?P<content>[^`]*)```/
+    @@code_block_regex = /```(?P<language>[a-zA-Z]+\n)?(?!```)(?P<content>[\s\S]*)```/
     # Regex for matching colour tags to avoid them when calculating line lengths
     @@colour_tag_regex = /<\/?[a-z0-9\-]+>/
     # The Client Cache, so the parser can do lookups
