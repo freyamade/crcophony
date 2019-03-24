@@ -143,6 +143,10 @@ module Crcophony
     # Handle word wrapping, also adding the indentation for lines
     private def wrap_text!(message : String, lines : Array(String))
       message_lines = message.split "\n"
+      # Check for empty message body (for example when uploading an image the text is blank but there is an attachment)
+      if message_lines[0] == ""
+        message_lines.shift
+      end
       message_lines.each do |line|
         # Add initial indentation
         line = (" " * 4) + line
