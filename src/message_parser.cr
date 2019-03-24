@@ -6,6 +6,8 @@ module Crcophony
   class MessageParser
     # Regex for matching code blocks with an optional language
     @@code_block_regex = /```(?P<language>[a-zA-Z]+\n)?(?P<content>[^`]*)```/
+    # Regex for matching colour tags to avoid them when calculating line lengths
+    @@colour_tag_regex = /<\/?[a-z0-9\-]+>/
     # The Client Cache, so the parser can do lookups
     @cache : Discord::Cache
     # Array of special characters that should be escaped
@@ -145,10 +147,10 @@ module Crcophony
         # Add initial indentation
         line = (" " * 4) + line
         # Now handle lines
-        if message.size < @width
+        if message.gsub(@@colour_tag_regex, "").size < @width
           lines << line
         else
-          while line.size > @width
+          while line.gsub(@@colour_tag_regex, "").size > @width
             # Strip the first `width` characters from the line
             lines << line[0..@width]
             line = (" " * 4) + line[@width..line.size]

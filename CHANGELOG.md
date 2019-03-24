@@ -7,6 +7,7 @@ One stop shop for the updates made to the project with each version, and to chec
 - Added parsing of code blocks
     - They are now displayed with a coloured line to the left of them for clarity
     - Syntax highlighting is something I'm also looking into
+- Fixed bug where colouring text would interfere with the text wrapping process
 
 ## 0.4.0 - Latest Release
 - Removed duplicate colour names so all 256 colours are available
