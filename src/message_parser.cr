@@ -85,7 +85,12 @@ module Crcophony
 
         # Build the parsed code block by prepending a coloured bar character
         block = match["content"].strip
-        parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + line }
+        parsed_lines : Array(String)
+        if match["language"]?
+          parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + "<lightsteelblue1-fg>#{line}</lightsteelblue1-fg>" }
+        else
+          parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + line }
+        end
         parsed = parsed_lines.join "\n"
         # Replace the block with the parsed lines
         content = content.sub @@code_block_regex, parsed
