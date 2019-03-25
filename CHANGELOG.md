@@ -3,6 +3,8 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+
+## 0.5.0 - Latest Release
 - Changed loading messages to use a progress bar
 - Added parsing of code blocks
 - Added syntax highlighting using the [noir library](https://github.com/MakeNowJust/noir)
@@ -20,7 +22,7 @@ One stop shop for the updates made to the project with each version, and to chec
 - Fixed bug where a message containing just an image would have a blank line
 - Added keybinds for up and down arrows to scroll through messages / channels (requires `shards update`)
 
-## 0.4.0 - Latest Release
+## 0.4.0
 - Removed duplicate colour names so all 256 colours are available
 - Now renders the timestamp at the right hand side of the screen, similar to some shell themes
 - Colour the title of embeds based on the colour that they are in the normal client
