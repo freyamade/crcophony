@@ -15,6 +15,7 @@ One stop shop for the updates made to the project with each version, and to chec
         - json
         - python
         - ruby
+    - I'm currently trying to talk to the maintainer of the lib to allow me to add more lexers so this list should hopefully grow soon
 - Fixed bug where colouring text would interfere with the text wrapping process
 - Fixed bug where a message containing just an image would have a blank line
 - Added keybinds for up and down arrows to scroll through messages / channels (requires `shards update`)
