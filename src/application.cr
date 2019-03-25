@@ -238,8 +238,8 @@ module Crcophony
       end
 
       # Insert newline into prompt with ctrl + n
-      @app.bind("prompt", "keypress.ctrl-n") do |event_hub, _, _, state|
-        event_hub.trigger "prompt", "new_line"
+      @app.bind("prompt", "keypress.ctrl-n") do |event_hub|
+        event_hub.trigger "prompt", "append", {:char => "\n"}
         false
       end
 
