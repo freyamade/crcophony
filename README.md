@@ -19,14 +19,14 @@ Bottom line: ***Use at your own risk***
 ### Normal
 - <kbd>Ctrl</kbd>+<kbd>C</kbd>: Quit Application
 - <kbd>Enter</kbd>: Send Message
-- <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Up
-- <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Down
+- <kbd>Ctrl</kbd>+<kbd>W</kbd> / <kbd>Up</kbd>: Scroll Up
+- <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Down</kbd>: Scroll Down
 
 ### Channel Switching
 - <kbd>Ctrl</kbd>+<kbd>K</kbd>: Open / Close Channel Selection Menu
 - <kbd>Enter</kbd>: Select Channel
-- <kbd>Ctrl</kbd>+<kbd>W</kbd>: Scroll Selection Up
-- <kbd>Ctrl</kbd>+<kbd>S</kbd>: Scroll Selection Down
+- <kbd>Ctrl</kbd>+<kbd>W</kbd> / <kbd>Up</kbd>: Scroll Selection Up
+- <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Down</kbd>: Scroll Selection Down
 - <kbd>ESC</kbd>: Alternative Close Button
 
 If you can think of stuff I am missing, open an issue c:
