@@ -11,6 +11,7 @@ require "noir/lexers/ruby"
 
 # Also import the solarized themes
 require "noir/themes/monokai"
+require "noir/themes/solarized"
 
 # Also require the custom formatter that links Noir back to Hydra
 require "./formatter"
