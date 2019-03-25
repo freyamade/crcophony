@@ -8,7 +8,6 @@ One stop shop for the updates made to the project with each version, and to chec
 - Changed loading messages to use a progress bar
 - Added parsing of code blocks
 - Added syntax highlighting using the [noir library](https://github.com/MakeNowJust/noir)
-    - When I get some free time I think I'll port some more lexers from Rouge to this project
     - Currently, the lib only supports the following languages, and as such these are the only languages that will be highlighted
         - crystal
         - css
@@ -20,7 +19,7 @@ One stop shop for the updates made to the project with each version, and to chec
     - I'm currently trying to talk to the maintainer of the lib to allow me to add more lexers so this list should hopefully grow soon
 - Fixed bug where colouring text would interfere with the text wrapping process
 - Fixed bug where a message containing just an image would have a blank line
-- Added keybinds for up and down arrows to scroll through messages / channels (requires `shards update`)
+- Added keybinds for up and down arrows to scroll through messages / channels
 
 ## 0.4.0
 - Removed duplicate colour names so all 256 colours are available
