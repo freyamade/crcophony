@@ -1,5 +1,6 @@
 require "discordcr"
 require "hydra"
+require "./elements/*"
 
 module Crcophony
   # Class that manages the display and all stuff related to it
