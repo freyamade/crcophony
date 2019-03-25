@@ -56,6 +56,7 @@ module Crcophony
       })
 
       # Set the current channel to be the first channel in the list
+      # Set up the channel list to open the dev channel first by default
       @channel = @channel_list.get_channel
 
       # Set up necessary bindings before creating the prompt as we want our keybinds to made before the prompt's default ones

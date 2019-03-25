@@ -1,5 +1,6 @@
 require "discordcr"
 require "hydra"
+require "./noir_link/setup"
 
 module Crcophony
   # Class that contains a collection of static methods used to parse retrieved messages into a good output format
@@ -87,9 +88,19 @@ module Crcophony
         block = match["content"].strip
         parsed_lines : Array(String)
         if match["language"]?
-          parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + "<lightsteelblue1-fg>#{line}</lightsteelblue1-fg>" }
+          lexer = Noir.find_lexer match["language"].not_nil!.strip
+          if lexer
+            parsed_lines = block.split("\n").map { |line|
+              builder = String::Builder.new
+              Noir.highlight line, lexer: lexer, formatter: Crcophony::SyntaxFormatter.new(Noir::Themes::Monokai.new, builder)
+              line = builder.to_s
+              next "<navyblue-fg>│ </navyblue-fg>#{line}"
+            }
+          else
+            parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg><lightsteelblue1-fg>#{line}</lightsteelblue1-fg>" }
+          end
         else
-          parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>" + line }
+          parsed_lines = block.split("\n").map { |line| "<navyblue-fg>│ </navyblue-fg>#{line}" }
         end
         parsed = parsed_lines.join "\n"
         # Replace the block with the parsed lines
