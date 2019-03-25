@@ -29,8 +29,6 @@ Bottom line: ***Use at your own risk***
 - <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Down</kbd>: Scroll Selection Down
 - <kbd>ESC</kbd>: Alternative Close Button
 
-If you can think of stuff I am missing, open an issue c:
-
 ## Usage
 
 ### Using pre-built binary
