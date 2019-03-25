@@ -241,8 +241,16 @@ module Crcophony
         event_hub.trigger "messages", "scroll_up"
         false
       end
+      @app.bind("prompt", "keypress.up") do |event_hub|
+        event_hub.trigger "messages", "scroll_up"
+        false
+      end
       # Scroll down the scrollbox
       @app.bind("prompt", "keypress.ctrl-s") do |event_hub|
+        event_hub.trigger "messages", "scroll_down"
+        false
+      end
+      @app.bind("prompt", "keypress.down") do |event_hub|
         event_hub.trigger "messages", "scroll_down"
         false
       end
@@ -260,8 +268,16 @@ module Crcophony
         event_hub.trigger "channels", "select_up"
         false
       end
+      @app.bind("channel_prompt", "keypress.up") do |event_hub|
+        event_hub.trigger "channels", "select_up"
+        false
+      end
       # Move channel selection down one
       @app.bind("channel_prompt", "keypress.ctrl-s") do |event_hub|
+        event_hub.trigger "channels", "select_down"
+        false
+      end
+      @app.bind("channel_prompt", "keypress.down") do |event_hub|
         event_hub.trigger "channels", "select_down"
         false
       end

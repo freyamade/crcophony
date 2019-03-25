@@ -17,6 +17,7 @@ One stop shop for the updates made to the project with each version, and to chec
         - ruby
 - Fixed bug where colouring text would interfere with the text wrapping process
 - Fixed bug where a message containing just an image would have a blank line
+- Added keybinds for up and down arrows to scroll through messages / channels (requires `shards update`)
 
 ## 0.4.0 - Latest Release
 - Removed duplicate colour names so all 256 colours are available

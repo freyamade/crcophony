@@ -6,7 +6,7 @@ shards:
 
   hydra:
     github: freyamade/hydra
-    commit: f269091789288fe6b8350f4f3fb32ef69885fb29
+    commit: 6e745cf4e2950b5f70fd0d3f737a1d8f50d08594
 
   noir:
     github: MakeNowJust/noir
