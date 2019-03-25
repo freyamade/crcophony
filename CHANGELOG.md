@@ -5,8 +5,16 @@ One stop shop for the updates made to the project with each version, and to chec
 ## master
 - Changed loading messages to use a progress bar
 - Added parsing of code blocks
-    - They are now displayed with a coloured line to the left of them for clarity
-    - Syntax highlighting is something I'm also looking into
+- Added syntax highlighting using the [noir library](https://github.com/MakeNowJust/noir)
+    - When I get some free time I think I'll port some more lexers from Rouge to this project
+    - Currently, the lib only supports the following languages, and as such these are the only languages that will be highlighted
+        - crystal
+        - css
+        - html
+        - javascript
+        - json
+        - python
+        - ruby
 - Fixed bug where colouring text would interfere with the text wrapping process
 - Fixed bug where a message containing just an image would have a blank line
 
