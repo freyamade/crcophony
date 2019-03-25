@@ -18,7 +18,7 @@ module Crcophony
         wrote = false
         color_name = ""
         if c = style.fore
-          color_int = "#{c.red}#{c.green}#{c.blue}".to_u32
+          color_int = "#{c.red.to_s 16}#{c.green.to_s 16}#{c.blue.to_s 16}".to_u32 16
           color_name = Hydra::Color.new(color_int).name
           @out << "<#{color_name}-fg>"
           wrote = true
