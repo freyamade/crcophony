@@ -236,6 +236,13 @@ module Crcophony
         event_hub.trigger "prompt", "clear"
         false
       end
+
+      # Insert newline into prompt with ctrl + n
+      @app.bind("prompt", "keypress.ctrl-n") do |event_hub, _, _, state|
+        event_hub.trigger "prompt", "new_line"
+        false
+      end
+
       # Scroll up to scroll box
       @app.bind("prompt", "keypress.ctrl-w") do |event_hub|
         event_hub.trigger "messages", "scroll_up"

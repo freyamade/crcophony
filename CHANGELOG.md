@@ -3,6 +3,8 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
+- Added basic multi-line input
+    - The system currently doesn't change the design of the prompt so it currently looks garbage
 
 ## 0.5.0 - Latest Release
 - Changed loading messages to use a progress bar
