@@ -3,8 +3,8 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
-- Added basic multi-line input
-    - The system currently doesn't change the design of the prompt so it currently looks garbage
+- Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
+- Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere (requires `shards update`)
 
 ## 0.5.0 - Latest Release
 - Changed loading messages to use a progress bar
