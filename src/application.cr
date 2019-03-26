@@ -15,7 +15,7 @@ module Crcophony
     @client : Discord::Client
     @messages : Hydra::Logbox
     @parser : Crcophony::MessageParser
-    @prompt : Hydra::Prompt
+    @prompt : Crcophony::MessagePrompt
     @screen : Hydra::TerminalScreen
     # user_id => guild_id => color role
     @user_color_cache : Hash(UInt64, Hash(UInt64, Discord::Role)) = Hash(UInt64, Hash(UInt64, Discord::Role)).new
@@ -64,7 +64,7 @@ module Crcophony
       setup_bindings
 
       # Message Prompt
-      @prompt = Hydra::Prompt.new("prompt", {
+      @prompt = Crcophony::MessagePrompt.new(@messages, "prompt", {
         :position => "#{@screen.height - 3}:0",
         :width    => @screen.width.to_s,
         :height   => "2",
