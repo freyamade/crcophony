@@ -20,7 +20,6 @@ module Crcophony
     getter unread_messages
     setter prev_channel
 
-    # TODO - DM Channels
     def initialize(client : Discord::Client, id : String, options = Hash(Symbol, String).new)
       super id, options
       @channels = get_channels client
