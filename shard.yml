@@ -16,7 +16,7 @@ dependencies:
     github: freyamade/hydra
     branch: master
   noir:
-    github: MakeNowJust/noir
+    github: freyamade/noir
     branch: master
 
 crystal: 0.27.2

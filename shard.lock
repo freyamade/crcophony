@@ -6,10 +6,10 @@ shards:
 
   hydra:
     github: freyamade/hydra
-    commit: a0a02ee09a35d77f77174090538aac1988f1f106
+    commit: 6f1700892f85e9bf97f1a526a8c1e6609f18ea32
 
   noir:
-    github: MakeNowJust/noir
+    github: freyamade/noir
     commit: 87e77d739d3bbcc42cd7570366010988cf4e16a7
 
   termbox:
