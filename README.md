@@ -21,7 +21,7 @@ Bottom line: ***Use at your own risk***
 - <kbd>Enter</kbd>: Send Message
 - <kbd>Ctrl</kbd>+<kbd>W</kbd> / <kbd>Up</kbd>: Scroll Up
 - <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Down</kbd>: Scroll Down
-- <kbd>Ctrl</kbd>+<kbd>N</kbd>: Add line break to message input (WIP but usable)
+- <kbd>Ctrl</kbd>+<kbd>N</kbd>: Add line break to message input
 
 ### Channel Switching
 - <kbd>Ctrl</kbd>+<kbd>K</kbd>: Open / Close Channel Selection Menu
