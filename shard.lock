@@ -1,5 +1,9 @@
 version: 1.0
 shards:
+  dbus:
+    github: oprypin/crystal-dbus
+    commit: 9bd18d5a61f54e80e41bdae4b93236732d5d34c9
+
   discordcr:
     github: freyamade/discordcr
     commit: 9a4029b312fd0d1205afc09d6faa34dc6796e29c
@@ -11,6 +15,10 @@ shards:
   noir:
     github: freyamade/noir
     commit: 87e77d739d3bbcc42cd7570366010988cf4e16a7
+
+  notify:
+    github: woodruffw/notify.cr
+    commit: c1902634ce60acbd13cb445d441b3ca32631021e
 
   termbox:
     github: andrewsuzuki/termbox-crystal
