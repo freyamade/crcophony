@@ -53,14 +53,26 @@ module Crcophony
       end
     end
 
+    # Get the name of the channel given an id
+    def get_channel_name(channel_id : Discord::Snowflake | UInt64) : String
+      id = channel_id.to_u64
+      @channels.each do |channel|
+        if channel.id.to_u64 == id
+          return channel.to_s
+        end
+      end
+      return ""
+    end
+
     # Search through the list of channels, using levenshtein similarity for fuzzy searching
     def search(string : String)
       @search_string = string
     end
 
     def add_unread(channel_id : Discord::Snowflake | UInt64)
+      id = channel_id.to_u64
       @channels.each do |channel|
-        if channel.id == id
+        if channel.id.to_u64 == id
           @unread_messages += 1
           channel.unread_messages += 1
           return

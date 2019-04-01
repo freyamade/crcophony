@@ -141,18 +141,19 @@ module Crcophony
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
         # Get the role for the username colours
+        @notifier.notify("#{@channel.to_s}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
         role = get_role_for_message message
         @parser.parse(message, role).each do |line|
           @messages.add_message line
         end
       else
         @channel_list.add_unread message.channel_id
+        @notifier.notify("#{@channel_list.get_channel_name message.channel_id}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
         # Update the label with the current number of unreads
         @channel_name.value = generate_label @channel
       end
       # Trigger an update manually
       if update
-        @notifier.notify "crcophony", body: "new message from #{message.author.username}"
         @app.trigger "update"
       end
     end
