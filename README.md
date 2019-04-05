@@ -2,8 +2,35 @@
 *read: cacophony*
 
 [![release badge](https://img.shields.io/github/tag-date/freyamade/crcophony.svg?label=version&style=flat-square)](https://github.com/freyamade/crcophony/releases/latest)
+![I am not currently actively developing this project, but I will fix issues that arise](https://img.shields.io/badge/status-fixes--only-blue.svg)
 
 A simple Discord terminal ui written in Crystal.
+
+## Notice about notifications
+I originally had the system set up to use `dbus` for a notification service.
+However, according to the `dbus` project;
+```
+NOTE ABOUT STATIC LINKING
+
+We are not yet firmly freezing all runtime dependencies of the libdbus
+library. For example, the library may read certain files as part of
+its implementation, and these files may move around between versions.
+
+As a result, we don't yet recommend statically linking to
+libdbus. Also, reimplementations of the protocol from scratch might
+have to work to stay in sync with how libdbus behaves.
+
+To lock things down and declare static linking and reimplementation to
+be safe, we'd like to see all the internal dependencies of libdbus
+(for example, files read) well-documented in the specification, and
+we'd like to have a high degree of confidence that these dependencies
+are supportable over the long term and extensible where required.
+```
+
+As a result, I will be unable to compile a static binary that uses dbus for notifications.
+I will be removing the notification system from `master` and hosting it on a separate branch named `with-notifs` until a solution can be reached for this issue.
+
+I apologise for this, and will continue looking for a way to remedy the situation.
 
 ## WARNING
 Self-bots are not allowed by Discord's Terms of Service.
