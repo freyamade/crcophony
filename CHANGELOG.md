@@ -5,7 +5,11 @@ One stop shop for the updates made to the project with each version, and to chec
 ## master
 - Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
 - Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere (requires `shards update`)
-- Added message notifications that display channel, username and a bit of the message
+
+### with-notifs
+The `with-notifs` branch is an up to date version of the application with additional notification support.
+To summarise what is said in the project README; I will be unable to provide a static executable that uses dbus for notifications.
+If you want this feature, you will have to build from source.
 
 ## 0.5.0 - Latest Release
 - Changed loading messages to use a progress bar
