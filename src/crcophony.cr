@@ -3,7 +3,7 @@ require "hydra"
 require "./*"
 
 module Crcophony
-  VERSION = "0.5.0"
+  VERSION = "0.6.0"
 
   # Load config from the environment
   config = Crcophony::Config.new

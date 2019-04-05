@@ -3,15 +3,17 @@
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
 ## master
-- Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
-- Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere (requires `shards update`)
 
 ### with-notifs
 The `with-notifs` branch is an up to date version of the application with additional notification support.
 To summarise what is said in the project README; I will be unable to provide a static executable that uses dbus for notifications.
 If you want this feature, you will have to build from source.
 
-## 0.5.0 - Latest Release
+## 0.6.0 - Latest Release
+- Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
+- Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere
+
+## 0.5.0
 - Changed loading messages to use a progress bar
 - Added parsing of code blocks
 - Added syntax highlighting using the [noir library](https://github.com/MakeNowJust/noir)
