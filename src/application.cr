@@ -1,6 +1,5 @@
 require "discordcr"
 require "hydra"
-require "notify"
 require "./elements/*"
 
 module Crcophony
@@ -15,7 +14,6 @@ module Crcophony
     @channel_prompt : Crcophony::Searcher
     @client : Discord::Client
     @messages : Hydra::Logbox
-    @notifier : Notify
     @parser : Crcophony::MessageParser
     @prompt : Crcophony::MessagePrompt
     @screen : Hydra::TerminalScreen
@@ -27,9 +25,6 @@ module Crcophony
     def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
       @app = Hydra::Application.setup screen: @screen
-
-      # Create a notifier for notifying received messages
-      @notifier = Notify.new
 
       # Create a parser instance
       @parser = Crcophony::MessageParser.new @client.client_id.to_u64, @client.cache.not_nil!, @screen.width
@@ -141,14 +136,12 @@ module Crcophony
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
         # Get the role for the username colours
-        @notifier.notify("#{@channel.to_s}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
         role = get_role_for_message message
         @parser.parse(message, role).each do |line|
           @messages.add_message line
         end
       else
         @channel_list.add_unread message.channel_id
-        @notifier.notify("#{@channel_list.get_channel_name message.channel_id}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
         # Update the label with the current number of unreads
         @channel_name.value = generate_label @channel
       end

@@ -18,9 +18,6 @@ dependencies:
   noir:
     github: freyamade/noir
     branch: master
-  notify:
-    github: woodruffw/notify.cr
-    branch: master
 
 crystal: 0.27.2
 
