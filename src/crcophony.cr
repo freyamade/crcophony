@@ -1,5 +1,6 @@
 require "discordcr"
 require "hydra"
+require "logger"
 require "./*"
 
 module Crcophony
@@ -9,7 +10,7 @@ module Crcophony
   config = Crcophony::Config.new
 
   # Set up Discord
-  client = Discord::Client.new token: config.token, client_id: config.user_id, logger: logger
+  client = Discord::Client.new token: config.token, client_id: config.user_id, logger: Logger.new(nil)
   cache = Discord::Cache.new(client)
   client.cache = cache
 
