@@ -9,7 +9,6 @@ module Crcophony
   config = Crcophony::Config.new
 
   # Set up Discord
-  logger = Logger.new File.new "discord.log", "w"
   client = Discord::Client.new token: config.token, client_id: config.user_id, logger: logger
   cache = Discord::Cache.new(client)
   client.cache = cache

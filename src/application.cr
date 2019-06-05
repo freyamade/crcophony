@@ -187,7 +187,6 @@ module Crcophony
       begin
         guild_member = cache.resolve_member message.guild_id.not_nil!, message.author.id
       rescue
-        logger = Logger.new File.new "debug.log", "a"
         logger.error "Found an invalid user #{message.author.username} (#{message.author.id}) in Guild #{message.guild_id}"
         # Add the nil cache
         @user_nil_role_cache.add nil_cache_key
