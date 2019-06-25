@@ -5,7 +5,6 @@ require "./*"
 
 module Crcophony
   VERSION = "0.6.0"
-  puts ENV
 
   # Load config from the environment
   config = Crcophony::Config.new
