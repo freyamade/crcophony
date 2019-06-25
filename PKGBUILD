@@ -17,5 +17,7 @@ package() {
     cd "$srcdir/crcophony"
     shards install
     mkdir -p "$pkgdir/usr/bin/"
-    crystal build src/crcophony.cr --release -o "$pkgdir/usr/bin/crcophony" --progress
+    mkdir -p "$pkgdir/opt"
+    crystal build src/crcophony.cr --release -o "$pkgdir/opt/crcophony" --progress
+    printf "#!/bin/bash\n/opt/crcophony" > "$pkgdir/usr/bin/crcophony"
 }
