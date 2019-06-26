@@ -10,14 +10,23 @@ license=('MIT')
 md5sums=('SKIP')
 depends=('dbus' 'termbox-git')
 makedepends=('git' 'crystal' 'shards')
-source=('crcophony::git+https://github.com/freyamade/crcophony.git')
+source=("$pkgname::git+https://github.com/freyamade/crcophony.git")
 provides=('crcophony')
 
+pkgver() {
+    cd "$pkgname"
+    printf "%s" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd "$srcdir/$pkgname"
+    shards build crcophony --release --progress
+}
+
 package() {
-    cd "$srcdir/crcophony"
-    shards install
     mkdir -p "$pkgdir/usr/bin/"
     mkdir -p "$pkgdir/opt"
-    crystal build src/crcophony.cr --release -o "$pkgdir/opt/crcophony" --progress
     printf "#!/bin/bash\n/opt/crcophony" > "$pkgdir/usr/bin/crcophony"
+    chmod +x "$pkgdir/usr/bin/crcophony"
+    mv "$srcdir/$pkgname/bin/crcophony" "$pkgdir/opt/crcophony"
 }
