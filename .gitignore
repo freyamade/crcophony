@@ -6,3 +6,7 @@
 *.log
 .env
 *.tar.gz
+
+# makepkg stuff
+crcophony-git/
+src/crcophony-git/
