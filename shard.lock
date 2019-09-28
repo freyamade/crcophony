@@ -1,12 +1,16 @@
 version: 1.0
 shards:
+  dbus:
+    github: oprypin/crystal-dbus
+    commit: dd744b951dc2bc12399ac518f3a042965f64392b
+
   discordcr:
     github: freyamade/discordcr
     commit: 9a4029b312fd0d1205afc09d6faa34dc6796e29c
 
   hydra:
     github: freyamade/hydra
-    commit: 6f1700892f85e9bf97f1a526a8c1e6609f18ea32
+    commit: bfc73ea3282515c97b5cff75202e419ba98120df
 
   noir:
     github: freyamade/noir

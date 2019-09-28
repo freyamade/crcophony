@@ -2,16 +2,13 @@
 
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
-## master
-
-### with-notifs
-The `with-notifs` branch is an up to date version of the application with additional notification support.
-To summarise what is said in the project README; I will be unable to provide a static executable that uses dbus for notifications.
-If you want this feature, you will have to build from source.
-
 ## 0.6.0 - Latest Release
 - Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
-- Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere
+- Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere (requires `shards update`)
+
+### without-notifs
+The `without-notifs` branch is a saved version of the project without the DBUS notifications.
+This is the branch that the latest static release has been made from
 
 ## 0.5.0
 - Changed loading messages to use a progress bar
