@@ -1,5 +1,5 @@
 name: crcophony
-version: 0.6.0
+version: 0.7.0
 
 authors:
   - freyamade <frybrdrck@gmail.com>
@@ -18,7 +18,10 @@ dependencies:
   noir:
     github: freyamade/noir
     branch: master
+  notify:
+    github: woodruffw/notify.cr
+    branch: master
 
-crystal: 0.27.2
+crystal: 0.31.0
 
 license: MIT

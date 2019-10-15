@@ -2,35 +2,8 @@
 *read: cacophony*
 
 [![release badge](https://img.shields.io/github/tag-date/freyamade/crcophony.svg?label=version&style=flat-square)](https://github.com/freyamade/crcophony/releases/latest)
-![I am not currently actively developing this project, but I will fix issues that arise](https://img.shields.io/badge/status-fixes--only-blue.svg)
 
-A simple Discord terminal ui written in Crystal.
-
-## Notice about notifications
-I originally had the system set up to use `dbus` for a notification service.
-However, according to the `dbus` project;
-```
-NOTE ABOUT STATIC LINKING
-
-We are not yet firmly freezing all runtime dependencies of the libdbus
-library. For example, the library may read certain files as part of
-its implementation, and these files may move around between versions.
-
-As a result, we don't yet recommend statically linking to
-libdbus. Also, reimplementations of the protocol from scratch might
-have to work to stay in sync with how libdbus behaves.
-
-To lock things down and declare static linking and reimplementation to
-be safe, we'd like to see all the internal dependencies of libdbus
-(for example, files read) well-documented in the specification, and
-we'd like to have a high degree of confidence that these dependencies
-are supportable over the long term and extensible where required.
-```
-
-As a result, I will be unable to compile a static binary that uses dbus for notifications.
-I will be removing the notification system from `master` and hosting it on a separate branch named `with-notifs` until a solution can be reached for this issue.
-
-I apologise for this, and will continue looking for a way to remedy the situation.
+A simple Discord Terminal UI written in Crystal.
 
 ## WARNING
 Self-bots are not allowed by Discord's Terms of Service.
@@ -57,29 +30,30 @@ Bottom line: ***Use at your own risk***
 - <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Down</kbd>: Scroll Selection Down
 - <kbd>ESC</kbd>: Alternative Close Button
 
-## Usage
+## Installation
 
-### Using pre-built binary
-Since the 0.1.0 release I have been including a static binary attached to releases. Here are instructions for running the application using these binaries;
-
-1. Go to the [latest release](https://github.com/freyamade/crcophony/releases/latest) and download the binary.
-2. Follow the steps in [Gathering Data](#gathering-data) to set up your environment.
-3. Run `./crcophony` from the directory you downloaded the binary to and it should run.
-
-If the pre-built binary doesn't work, open an issue with as much information as possible (from log files and application error trace and such) and then maybe also try installing from source!
+### PKGBUILD
+If you use Arch Linux or any similar variant, then there's a PKGBUILD in the repo.
+I haven't published this project to the AUR yet but I intend to at some stage.
 
 ### From source
-If the pre-built binary didn't work for you, or you want to install from source by choice, here are the instructions;
+If you're not on Arch, currently the only way is to install from source.
 
-1. Install [Crystal](https://crystal-lang.org/reference/installation/)
-2. Install [termbox](https://github.com/nsf/termbox) following the instructions in their README.
-3. Clone this repo.
-4. Run `shards install` to install requirements.
-5. Follow the steps in [Gathering Data](#gathering-data) to set up your environment.
-6. Run `shards build` to build the system, or use `shards build --release` to build with optimisations (slower build but potential speedups over non release mode).
-7. Run `bin/crcophony` to open the application.
+#### Install requirements
+The requirements for the application are as follows;
+- [`crystal>=0.31.0`](https://crystal-lang.org/reference/installation/)
+- [`termbox`](https://github.com/nsf/termbox)
+- 'libdbus'
 
-## Gathering Data
+#### Build
+1. Clone this repo
+2. Run `shards install` and then `shards build --release -Dpreview_mt` to install all the requirements and build the application.
+    - This will create an executable in the `bin` folder local to the cloned repo, which can then be moved wherever it needs to be moved.
+
+## Usage
+Before you can run Crcophony, you need to gather a bit of data.
+
+### Gathering Data
 To use the system, you must gather the following information and export the data as environment variables.
 These variables are as follows;
 
@@ -93,6 +67,14 @@ Here are the instructions for you to get these bits of data;
 
 If you use the `fish` or `bash` shells, a sample `.env` file has been included in this project (`.env.sample.fish` and `env.sample.bash` respectively).
 Simply rename the appropriate file to `.env`, populate the strings inside with your gathered data and run `source .env` in the directory to get the correct environment variables created.
+
+### Running the Application
+After the environment variables are defined, simply run the crcophony executable.
+
+### NOTE
+As far as I am currently aware, placing `crcophony` in a bin folder and running it as `crcophony` does not work when attempting to spawn threads.
+This is because Crystal tries to spawn by reading the file passed in as the command following it like a path from your current directory.
+The workaround I currently use is creating a small bash script that runs crcophony using an absolute path, and placing this executable script in your bin folder.
 
 ## Contributing
 

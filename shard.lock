@@ -10,11 +10,15 @@ shards:
 
   hydra:
     github: freyamade/hydra
-    commit: bfc73ea3282515c97b5cff75202e419ba98120df
+    commit: df8a6b0578eae16cd78aea32e733266aa320d008
 
   noir:
     github: freyamade/noir
     commit: 87e77d739d3bbcc42cd7570366010988cf4e16a7
+
+  notify:
+    github: woodruffw/notify.cr
+    commit: c1902634ce60acbd13cb445d441b3ca32631021e
 
   termbox:
     github: andrewsuzuki/termbox-crystal

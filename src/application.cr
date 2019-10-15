@@ -16,6 +16,7 @@ module Crcophony
     @channel_prompt : Crcophony::Searcher
     @client : Discord::Client
     @messages : Hydra::Logbox
+    @notifier : Notify
     @parser : Crcophony::MessageParser
     @prompt : Crcophony::MessagePrompt
     @screen : Hydra::TerminalScreen
@@ -27,6 +28,9 @@ module Crcophony
     def initialize(@client : Discord::Client)
       @screen = Hydra::TerminalScreen.new
       @app = Hydra::Application.setup screen: @screen, logger: Logger.new(nil)
+
+      # Create a notifier for notifying received messages
+      @notifier = Notify.new
 
       # Create a parser instance
       @parser = Crcophony::MessageParser.new @client.client_id.to_u64, @client.cache.not_nil!, @screen.width
@@ -52,7 +56,7 @@ module Crcophony
       channel_y = (@screen.width.to_f / 2 - (@screen.width / 4 * 3).to_f / 2).floor.to_i
       @channel_list = Crcophony::ChannelList.new(@client, "channels", {
         :position => "#{channel_x}:#{channel_y}",
-        :width    => "#{@screen.width / 4 * 3}",
+        :width    => "#{@screen.width // 4 * 3}",
         :height   => "13", # "#{@screen.height / 4 * 3}",
         :z_index  => "1",
         :visible  => "false",
@@ -75,7 +79,7 @@ module Crcophony
       # Channel Searching Prompt
       @channel_prompt = Crcophony::Searcher.new(@channel_list, "channel_prompt", {
         :position => "#{channel_x - 2}:#{channel_y}",
-        :width    => "#{@screen.width / 4 * 3}",
+        :width    => "#{@screen.width // 4 * 3}",
         :height   => "2",
         :z_index  => "1",
         :visible  => "false",
@@ -133,8 +137,10 @@ module Crcophony
     # Handler for receiving a message via the Discord client
     # Update the screen if update is true (this flag is used to not update until all messages are loaded in case of changing channel)
     def handle_message(message : Discord::Message, update : Bool = true)
-      # Basic Notification
       if message.channel_id == @channel.id
+        # Notification
+        @notifier.notify("#{@channel.to_s}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
+
         # First do the various parsing and escaping we need to do
         # Then add the message to the logbox
         # Get the role for the username colours
@@ -143,6 +149,8 @@ module Crcophony
           @messages.add_message line
         end
       else
+        # Notification
+        @notifier.notify("#{@channel_list.get_channel_name message.channel_id}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
         @channel_list.add_unread message.channel_id
         # Update the label with the current number of unreads
         @channel_name.value = generate_label @channel
@@ -321,12 +329,12 @@ module Crcophony
     # Generate a centered channel name given a server and a channel
     private def generate_label(channel : Crcophony::Channel) : String
       label = channel.to_s
-      left_padding = (@screen.width - label.size) / 2
+      left_padding = (@screen.width - label.size) // 2
       right_string = ""
       if @channel_list.unread_messages > 0
         # Add on a notifications display at the top right
         notif_string = "[#{@channel_list.unread_messages}]"
-        right_padding = (@screen.width - label.size - notif_string.size - 8) / 2
+        right_padding = (@screen.width - label.size - notif_string.size - 8) // 2
         right_string = "#{" " * right_padding}#{notif_string}"
       end
       return "#{" " * left_padding}#{label}#{right_string}"

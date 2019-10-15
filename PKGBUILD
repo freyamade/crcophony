@@ -1,7 +1,7 @@
 # Maintainer: freyamade <contact@freyama.de>
 
 pkgname=crcophony-git
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='Fast, neat discord TUI written in Crystal'
 arch=('x86_64')
@@ -9,7 +9,7 @@ url='https://github.com/freyamade/crcophony'
 license=('MIT')
 md5sums=('SKIP')
 depends=('dbus' 'termbox-git')
-makedepends=('git' 'crystal' 'shards')
+makedepends=('git' 'crystal>=0.31.0' 'shards')
 source=("$pkgname::git+https://github.com/freyamade/crcophony.git")
 provides=('crcophony')
 
@@ -20,7 +20,7 @@ pkgver() {
 
 build() {
     cd "$srcdir/$pkgname"
-    shards build crcophony --release --progress
+    shards build crcophony --release --progress -Dpreview_mt
 }
 
 package() {

@@ -2,13 +2,14 @@
 
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
-## 0.6.0 - Latest Release
+## 0.7.0 - Latest Release
+- Updated to Crystal 0.31
+    - Crcophony now requires the multithreading preview to be enabled to work properly
+- Notifications are back in master
+
+## 0.6.0
 - Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
 - Fixed bug where characters always get added to the end of a prompt even when the cursor is moved elsewhere (requires `shards update`)
-
-### without-notifs
-The `without-notifs` branch is a saved version of the project without the DBUS notifications.
-This is the branch that the latest static release has been made from
 
 ## 0.5.0
 - Changed loading messages to use a progress bar
