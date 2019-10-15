@@ -5,6 +5,7 @@ One stop shop for the updates made to the project with each version, and to chec
 ## 0.7.0 - Latest Release
 - Updated to Crystal 0.31
     - Crcophony now requires the multithreading preview to be enabled to work properly
+- Notifications are back in master
 
 ## 0.6.0
 - Added multi line input that expands the prompt box accordingly (Ctrl+N to add a new line)
