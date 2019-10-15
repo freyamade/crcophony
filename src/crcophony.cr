@@ -68,7 +68,9 @@ module Crcophony
   begin
     app.run # => Screen is cleared and the application is displayed
     # The application will loop until ctrl-c is pressed or an exception is raised
-  ensure
     app.teardown # => Reset the screen
+  rescue ex
+    app.teardown # Teardown first to print stuff after
+    puts ex.inspect_with_backtrace
   end
 end
