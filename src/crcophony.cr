@@ -4,7 +4,7 @@ require "logger"
 require "./*"
 
 module Crcophony
-  VERSION = "0.6.0"
+  VERSION = "0.7.0"
 
   # Load config from the environment
   config = Crcophony::Config.new
