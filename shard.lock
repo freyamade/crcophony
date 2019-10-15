@@ -1,9 +1,5 @@
 version: 1.0
 shards:
-  dbus:
-    github: oprypin/crystal-dbus
-    commit: dd744b951dc2bc12399ac518f3a042965f64392b
-
   discordcr:
     github: freyamade/discordcr
     commit: 9a4029b312fd0d1205afc09d6faa34dc6796e29c

@@ -19,6 +19,6 @@ dependencies:
     github: freyamade/noir
     branch: master
 
-crystal: 0.27.2
+crystal: 0.31.0
 
 license: MIT
