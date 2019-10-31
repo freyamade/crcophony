@@ -2,7 +2,12 @@
 
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
-## 0.7.0 - Latest Release
+## 0.7.1 - Latest Release
+- Fixing issues with username colours
+    - System used to just take the topmost role for colours
+    - Now takes the topmost role with a colour, to match how the GUI client works
+
+## 0.7.0
 - Updated to Crystal 0.31
     - Crcophony now requires the multithreading preview to be enabled to work properly
 - Notifications are back in master
