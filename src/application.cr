@@ -161,7 +161,7 @@ module Crcophony
       end
     end
 
-    # Given a message, look up the user and the guild to get a list of roles and return the highest one (the one that provides the color)
+    # Given a message, look up the user and the guild to get a list of roles and return the highest one that provides a colour (if any)
     private def get_role_for_message(message : Discord::Message) : Discord::Role?
       if message.guild_id.nil?
         return nil
@@ -205,7 +205,20 @@ module Crcophony
       # Map the role ids to their object forms and get the one with the highest position
       roles = guild_member.roles.map { |a| cache.resolve_role(a) }
       roles.sort! { |a, b| b.position <=> a.position }
-      role = roles[0]
+
+      # Iterate through and find the first with a color
+      role : Discord::Role? = nil
+      roles.each do |r|
+        if r.color != 0
+          role = r
+          break
+        end
+      end
+
+      if role == nil
+        return nil
+      end
+      role = role.not_nil!
 
       # Cache the role
       if !@user_color_cache[user_id]?
