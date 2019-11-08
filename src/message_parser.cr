@@ -24,7 +24,7 @@ module Crcophony
     end
 
     # Parse a received message into a form that looks nice, given the user's highest role in the server
-    def parse(message : Discord::Message, role : Discord::Role?) : Array(String)
+    def parse(message : Discord::Message, role : Discord::Role?, past_message : Discord::Message) : Array(String)
       content = message.content
       # Escape special characters from the Discord Message so it displays properly
       content = escape_special_chars content
@@ -37,16 +37,21 @@ module Crcophony
       # Add links to attachments to the end of the message body
       content = parse_attachments content, message.attachments
       # Take the now parsed message and format it for output on the screen
-      return format_output message, content, role
+      return format_output message, content, role, message.author == past_message.author
     end
 
     # Take the now parsed message and format it for output on the screen
-    private def format_output(payload : Discord::Message, message : String, role : Discord::Role?) : Array(String)
+    private def format_output(payload : Discord::Message, message : String, role : Discord::Role?, hide_username : Bool) : Array(String)
       # Get the colour for the username
-      username = get_color_for_username payload.author.username, role
+      spaces = @width - timestamp.size + 6
+      username = ""
+      if !hide_username
+        spaces -= payload.author.username.size
+        username = get_color_for_username payload.author.username, role
+      end
       # Put the timestamp on the right hand side in a subtle colour
       timestamp = payload.timestamp.to_s "%H:%M:%S %d/%m/%y"
-      spacing = " " * (@width - timestamp.size - payload.author.username.size + 6)
+      spacing = " " * spaces
       # Generate the first line
       lines = ["#{username}#{spacing}<grey-fg>#{timestamp}</grey-fg>"]
       # Wrap the rest of the text to fit in the width
