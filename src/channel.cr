@@ -3,19 +3,32 @@ require "discordcr"
 module Crcophony
   # A wrapper class around Discord's channel class that makes things a little easier in this project
   class Channel
+    # The Discord equivalent for this channel
     @channel : Discord::Channel
+    # A flag stating whether or not the initial load for the channel has been done
+    @loaded : Bool = false
+    # Keep an array of messages sent in the channel
+    @messages : Array(Discord::Message)
+    # The Discord Server this channel is attached to, if any
     @server : Discord::Guild?
-    @unread_messages : UInt64 = 0_u64
     # Remember the last search string that we calculated
     @prev_search_string : String = ""
     # And the score that was calculated
     @prev_score : Int32 = 0
+    # Maintain a count of how many messages we haven't read (can use this for later)
+    @unread_messages : UInt64 = 0_u64
 
     # Private Channels do not have guild ids
     def initialize(@channel : Discord::Channel)
+      @messages = [] of Discord::Message
     end
 
     def initialize(@channel : Discord::Channel, @server : Discord::Guild)
+      @messages = [] of Discord::Message
+    end
+
+    def <<(message : Discord::Message)
+      @messages << message
     end
 
     def to_s : String
@@ -108,5 +121,7 @@ module Crcophony
 
     # The number of unread messages in the channel (used only in the switcher)
     property unread_messages
+    # Keep track of whether or not we have done an inital load of messages for this channel
+    property loaded
   end
 end
