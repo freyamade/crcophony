@@ -53,6 +53,16 @@ module Crcophony
       end
     end
 
+    # Get a channel by its ID
+    def get_channel(id : Discord::Snowflake) : Crcophony::Channel?
+      @channels.each do |channel|
+        if channel.id == id
+          return channel
+        end
+      end
+      return nil
+    end
+
     # Get the name of the channel given an id
     def get_channel_name(channel_id : Discord::Snowflake | UInt64) : String
       id = channel_id.to_u64
@@ -69,15 +79,9 @@ module Crcophony
       @search_string = string
     end
 
-    def add_unread(channel_id : Discord::Snowflake | UInt64)
-      id = channel_id.to_u64
-      @channels.each do |channel|
-        if channel.id.to_u64 == id
-          @unread_messages += 1
-          channel.unread_messages += 1
-          return
-        end
-      end
+    def add_unread(channel : Crcophony::Channel)
+      @unread_messages += 1
+      channel.unread_messages += 1
     end
 
     # Reset the number of unread messages on the current channel to 0, and update the list's total unreads also
