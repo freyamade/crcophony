@@ -24,7 +24,7 @@ module Crcophony
     end
 
     # Parse a received message into a form that looks nice, given the user's highest role in the server
-    def parse(message : Discord::Message, role : Discord::Role?, past_message : Discord::Message?) : Array(String)
+    def parse(message : Discord::Message, role : Discord::Role?) : Array(String)
       content = message.content
       # Escape special characters from the Discord Message so it displays properly
       content = escape_special_chars content
@@ -36,28 +36,28 @@ module Crcophony
       content = parse_embeds content, message.embeds
       # Add links to attachments to the end of the message body
       content = parse_attachments content, message.attachments
-      # Do we hide the username
-      hide_username = !past_message.nil? && message.author == past_message.author
       # Take the now parsed message and format it for output on the screen
-      return format_output message, content, role, hide_username
+      return format_output message, content, role
     end
 
     # Take the now parsed message and format it for output on the screen
-    private def format_output(payload : Discord::Message, message : String, role : Discord::Role?, hide_username : Bool) : Array(String)
+    private def format_output(payload : Discord::Message, message : String, role : Discord::Role?) : Array(String)
       # Put the timestamp on the right hand side in a subtle colour
       timestamp = payload.timestamp.to_s "%H:%M:%S %d/%m/%y"
+
       # Get the colour for the username
-      spaces = @width - timestamp.size + 6
-      username = ""
-      if !hide_username
-        spaces -= payload.author.username.size
-        username = get_color_for_username payload.author.username, role
-      end
-      spacing = " " * spaces
+      username = get_color_for_username payload.author.username, role
+
+      # Figure out the amount of spacing to put between the timestamp and the username
+      # Add on 6 for padding from the TUI lib
+      spacing = " " * (@width - timestamp.size - payload.author.username.size + 6)
+
       # Generate the first line
       lines = ["#{username}#{spacing}<grey-fg>#{timestamp}</grey-fg>"]
+
       # Wrap the rest of the text to fit in the width
       wrap_text! message, lines
+
       return lines
     end
 
