@@ -31,10 +31,6 @@ module Crcophony
       @messages << message
     end
 
-    def prev_message : Discord::Message?
-      return @messages[@messages.size - 1]?
-    end
-
     def to_s : String
       builder = String::Builder.new
       if !@server.nil?
