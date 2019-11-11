@@ -123,9 +123,11 @@ module Crcophony
       return score
     end
 
-    # The number of unread messages in the channel (used only in the switcher)
-    property unread_messages
     # Keep track of whether or not we have done an inital load of messages for this channel
     property loaded
+    # The cached messages
+    getter messages
+    # The number of unread messages in the channel (used only in the switcher)
+    property unread_messages
   end
 end
