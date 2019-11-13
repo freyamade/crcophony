@@ -6,6 +6,7 @@ One stop shop for the updates made to the project with each version, and to chec
 - Fixing issues with username colours
     - System used to just take the topmost role for colours
     - Now takes the topmost role with a colour, to match how the GUI client works
+- Implemented a small form of channel message caching to improve performance
 
 ## 0.7.0
 - Updated to Crystal 0.31
