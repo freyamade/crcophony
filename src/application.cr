@@ -120,12 +120,21 @@ module Crcophony
       @channel_name.value = generate_label channel
       @messages.clear
 
-      # Retrieve a message history
-      @client.get_channel_messages(@channel.id).reverse.each do |message|
-        # Add a guild id to the message
-        message.guild_id = @channel.guild_id
-        handle_message message, false
+      # Retrieve a message history if necessary
+      if !@channel.loaded
+        @client.get_channel_messages(@channel.id).reverse.each do |message|
+          # Add a guild id to the message
+          message.guild_id = @channel.guild_id
+          # Handle the message with the append flag set to true
+          handle_message message, false, true
+        end
+      else
+        # Just load from the cache without reappending
+        @channel.messages.each do |message|
+          handle_message message, false, false
+        end
       end
+
       # Scroll to the bottom
       while @messages.can_scroll_down?
         @messages.scroll -1
@@ -136,7 +145,7 @@ module Crcophony
 
     # Handler for receiving a message via the Discord client
     # Update the screen if update is true (this flag is used to not update until all messages are loaded in case of changing channel)
-    def handle_message(message : Discord::Message, update : Bool = true)
+    def handle_message(message : Discord::Message, update : Bool = true, append : Bool = true)
       if message.channel_id == @channel.id
         # Notification
         @notifier.notify("#{@channel.to_s}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
@@ -148,10 +157,24 @@ module Crcophony
         @parser.parse(message, role).each do |line|
           @messages.add_message line
         end
+
+        # Append the message to the channel if necessary
+        if append
+          @channel << message
+        end
       else
         # Notification
         @notifier.notify("#{@channel_list.get_channel_name message.channel_id}", body: "#{message.author.username}: #{message.content}") if (update && message.author.id != @client.client_id)
-        @channel_list.add_unread message.channel_id
+
+        # If the channel has been loaded already, add the message to it
+        channel = @channel_list.get_channel(message.channel_id).not_nil!
+        if @channel.loaded && append
+          @channel << message
+        end
+
+        # Update the unread status of the channel
+        @channel_list.add_unread channel
+
         # Update the label with the current number of unreads
         @channel_name.value = generate_label @channel
       end

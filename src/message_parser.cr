@@ -42,15 +42,22 @@ module Crcophony
 
     # Take the now parsed message and format it for output on the screen
     private def format_output(payload : Discord::Message, message : String, role : Discord::Role?) : Array(String)
-      # Get the colour for the username
-      username = get_color_for_username payload.author.username, role
       # Put the timestamp on the right hand side in a subtle colour
       timestamp = payload.timestamp.to_s "%H:%M:%S %d/%m/%y"
+
+      # Get the colour for the username
+      username = get_color_for_username payload.author.username, role
+
+      # Figure out the amount of spacing to put between the timestamp and the username
+      # Add on 6 for padding from the TUI lib
       spacing = " " * (@width - timestamp.size - payload.author.username.size + 6)
+
       # Generate the first line
       lines = ["#{username}#{spacing}<grey-fg>#{timestamp}</grey-fg>"]
+
       # Wrap the rest of the text to fit in the width
       wrap_text! message, lines
+
       return lines
     end
 
