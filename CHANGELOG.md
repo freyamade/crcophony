@@ -2,6 +2,13 @@
 
 One stop shop for the updates made to the project with each version, and to check master's status against the latest release
 
+## s-0.0.1
+- Moved to Rust in the hopes of the development of the libraries in this language being more up to date and more worked on.
+- An inital version that hopefully manages to keep a lot of where crcophony-0.7 ended up at.
+
+<details>
+<summary>Crystal Builds</summary>
+
 ## 0.7.1 - Latest Release
 - Fixing issues with username colours
     - System used to just take the topmost role for colours
@@ -69,3 +76,4 @@ One stop shop for the updates made to the project with each version, and to chec
     - Without providing search text, it will display the previously visited channel and channels that have notifications
     - Typing search text will filter channels based on Levenshtein ratios
         - The algorithm could be improved somewhat however
+</details>
